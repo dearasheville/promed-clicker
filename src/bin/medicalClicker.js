@@ -13,4 +13,14 @@ const toPaste = (data) => {
   robot.keyToggle('v', 'up', 'control');
 };
 
-export default data => toPaste(data);
+const clicker = (surname, name, path, birth) => {
+  moveMouse(100, 100);
+  mouseClick();
+  toPaste(surname);
+
+  moveMouse(200, 200);
+  mouseClick();
+  toPaste(name);
+};
+
+export default clicker;
