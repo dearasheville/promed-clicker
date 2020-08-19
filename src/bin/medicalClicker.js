@@ -9,11 +9,6 @@ import sleep from '../utils';
 const toPaste = (data) => {
   clipboardy.writeSync(data);
 
-  robot.moveMouse(373, 54);
-  robot.mouseClick();
-
-  robot.keyTap('delete');
-
   robot.keyToggle('v', 'down', 'control');
   robot.keyToggle('v', 'up', 'control');
 
@@ -29,8 +24,7 @@ const clicker = (surname, name, path, birth) => {
   toPaste(name);
 };
 
-
-toPaste('dsadas');
+toPaste('1234');
 // clicker('a', 'c', 'c', 'd');
 
 export default clicker;
