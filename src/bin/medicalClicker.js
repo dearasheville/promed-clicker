@@ -9,18 +9,28 @@ import sleep from '../utils';
 const toPaste = (data) => {
   clipboardy.writeSync(data);
 
+  robot.moveMouse(373, 54);
+  robot.mouseClick();
+
+  robot.keyTap('delete');
+
   robot.keyToggle('v', 'down', 'control');
   robot.keyToggle('v', 'up', 'control');
+
+  robot.typeString(data);
 };
 
 const clicker = (surname, name, path, birth) => {
-  moveMouse(100, 100);
-  mouseClick();
-  toPaste(surname);
+  robot.moveMouse(32, 230);
+  robot.mouseClick();
 
-  moveMouse(200, 200);
-  mouseClick();
+  sleep(5000);
+
   toPaste(name);
 };
+
+
+toPaste('dsadas');
+// clicker('a', 'c', 'c', 'd');
 
 export default clicker;

@@ -8,6 +8,7 @@
     "node-xlsx": "^0.15.0",
     "python": "0.0.4",
     "robotjs": "^0.6.0",
+    "windows-build-tools": "^5.2.2",
     "xlsx": "^0.16.6"
   },
   "devDependencies": {
