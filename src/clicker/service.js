@@ -4,14 +4,14 @@
 import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
-const service = () => {
-  robot.moveMouse(750, 800);
+const service = (medicalService) => {
+  robot.moveMouse(755, 805);
   robot.mouseClick();
 
   sleep(2500);
 
   toPaste.upper('A');
-  robot.typeString('06.09.005');
+  robot.typeString(medicalService);
 
   sleep(2500);
 

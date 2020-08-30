@@ -12,7 +12,8 @@ import result from '../clicker/result';
 
 import { sleep } from '../utils';
 
-robot.setMouseDelay(50);
+robot.setMouseDelay(100);
+robot.setKeyboardDelay(100);
 
 const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService) => {
   search(surname, name, pathronymic, birth);
@@ -63,6 +64,8 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
     robot.moveMouse(130, 1050);
     robot.mouseClick();
   }
+
+  sleep(10000);
 };
 
 export default clicker;

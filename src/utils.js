@@ -20,6 +20,8 @@ const toPaste = {
     robot.mouseClick();
     robot.mouseClick('right');
 
+    sleep(1000);
+
     robot.moveMouse(robot.getMousePos().x + 100, robot.getMousePos().y + 190);
     robot.mouseClick();
   },
@@ -28,6 +30,8 @@ const toPaste = {
 
     robot.mouseClick();
     robot.mouseClick('right');
+
+    sleep(1000);
 
     robot.moveMouseSmooth(robot.getMousePos().x + 140, robot.getMousePos().y - 245);
     robot.mouseClick();
