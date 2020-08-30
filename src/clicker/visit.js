@@ -2,9 +2,9 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { sleep } from '../utils';
+import { sleep, toPaste } from '../utils';
 
-const visit = () => {
+const visit = (diseaseCode, visitCode) => {
   // "Посещение пациентом поликлиники: Добавление", вид обращения
   robot.moveMouse(301, 368);
   robot.mouseClick();
@@ -16,15 +16,23 @@ const visit = () => {
 
   sleep(1000);
 
-  robot.typeString('874737');
+  robot.typeString(visitCode);
 
   sleep(2500);
   robot.keyTap('enter');
 
+  // "Посещение пациентом поликлиники: Добавление", диагноз
+  robot.moveMouse(315, 955);
+  robot.mouseClick();
+
+  toPaste.upper(diseaseCode);
+
   // "Посещение пациентом поликлиники: Добавление", характер
-  robot.moveMouse(301, 959);
+  robot.moveMouse(330, 995);
   robot.mouseClick();
   robot.keyTap(3);
+
+  sleep(5000);
 
   robot.moveMouse(110, 1050);
   robot.mouseClick();

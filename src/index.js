@@ -20,4 +20,4 @@ const diseaseCode = line[4];
 const visitCode = line[5];
 const medicalService = line[6];
 
-clicker(surname, name, pathronymic, birth);
+clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService);

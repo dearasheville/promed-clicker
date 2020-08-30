@@ -4,7 +4,7 @@
 import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
-const direction = () => {
+const direction = (department, clinician, diseaseCode) => {
   // "Данные о направлении", кем направлен
   robot.moveMouse(365, 335);
   robot.mouseClick();
@@ -14,6 +14,7 @@ const direction = () => {
   robot.mouseClick('left', true);
   sleep(5000);
 
+  /**
   // "Данные о направлении", отделение
   robot.moveMouse(365, 400);
   robot.mouseClick();
@@ -24,30 +25,33 @@ const direction = () => {
 
   sleep(2500);
 
+
   robot.moveMouse(365, 610);
   robot.mouseClick();
 
   sleep(2500);
+  */
 
   // "Данные о направлении", врач
-  robot.moveMouse(365, 435);
+  robot.moveMouse(935, 435);
   robot.mouseClick();
-  robot.typeString('16009');
+  toPaste.lower(clinician.split(' ')[0]);
 
-  sleep(2500);
 
-  robot.moveMouse(robot.getMousePos().x, robot.getMousePos().y + 50);
+  sleep(5000);
+
+  robot.moveMouse(robot.getMousePos().x, robot.getMousePos().y + 10);
   robot.mouseClick();
 
   sleep(2500);
 
   // "Данные о направлении", диагноз
-  robot.moveMouseSmooth(365, 500);
+  robot.moveMouse(365, 500);
   robot.mouseClick();
 
   sleep(2500);
 
-  toPaste.lower('C44.3');
+  toPaste.lower(diseaseCode);
 };
 
 export default direction;

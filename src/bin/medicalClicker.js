@@ -14,13 +14,12 @@ import { sleep } from '../utils';
 
 robot.setMouseDelay(50);
 
-const clicker = (surname, name, pathronymic, birth) => {
+const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService) => {
   search(surname, name, pathronymic, birth);
 
   sleep(5000);
 
-  /*
-  direction();
+  // direction(department, clinician, diseaseCode);
 
   robot.moveMouse(114, 599);
   robot.mouseClick();
@@ -29,7 +28,7 @@ const clicker = (surname, name, pathronymic, birth) => {
 
   surveillance();
 
-  visit();
+  visit(diseaseCode, visitCode);
 
   sleep(5000);
 
@@ -41,15 +40,29 @@ const clicker = (surname, name, pathronymic, birth) => {
   robot.moveMouse(135, 795);
   robot.mouseClick();
 
-  service();
+  service(medicalService);
 
   sleep(5000);
 
   result();
 
-  robot.moveMouseSmooth(130, 1050);
+  robot.moveMouse(130, 1050);
   robot.mouseClick();
-  */
+
+  if (diseaseCode.slice(0, 1) === 'C') {
+    robot.moveMouseSmooth(990, 635);
+    robot.mouseClick();
+
+    sleep(5000);
+
+    robot.moveMouse(1865, 1050);
+    robot.mouseClick();
+
+    sleep(2500);
+
+    robot.moveMouse(130, 1050);
+    robot.mouseClick();
+  }
 };
 
 export default clicker;
