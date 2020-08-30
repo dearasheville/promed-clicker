@@ -16,6 +16,16 @@ const toPaste = (data) => {
   robot.mouseClick();
 };
 
+const toPaste2 = (data) => {
+  clipboardy.writeSync(data);
+
+  robot.mouseClick();
+  robot.mouseClick('right');
+
+  robot.moveMouseSmooth(robot.getMousePos()['x'] + 140, robot.getMousePos()['y'] - 245);
+  robot.mouseClick();
+};
+
 const clicker = (surname, name, path, birth) => {
   robot.moveMouse(32, 230);
   robot.mouseClick();
@@ -25,8 +35,8 @@ const clicker = (surname, name, path, birth) => {
   toPaste(name);
 };
 
-sleep(3000);
-/*
+sleep(7000);
+
 // "Человек: поиск", фамилия
 robot.moveMouse(480, 335);
 toPaste('Серов');
@@ -79,13 +89,15 @@ sleep(2000);
 robot.moveMouse(robot.getMousePos()['x'], robot.getMousePos()['y'] + 50);
 robot.mouseClick();
 
+sleep(2000);
 // "Данные о направлении", диагноз
 robot.moveMouseSmooth(365, 500);
 robot.mouseClick();
 sleep(500);
 toPaste('C44.3');
 robot.mouseClick();
-*/
+sleep(2000);
+
 
 robot.moveMouse(114, 599);
 robot.mouseClick();
@@ -113,6 +125,44 @@ robot.moveMouse(301, 959);
 robot.mouseClick();
 robot.keyTap(3);
 
+robot.moveMouse(110, 1050);
+robot.mouseClick();
 
+
+sleep(5000);
+
+robot.moveMouse(135, 765);
+robot.mouseClick();
+
+sleep(2000);
+
+robot.moveMouse(135, 795);
+robot.mouseClick();
+
+sleep(5000);
+
+
+robot.moveMouseSmooth(750, 800);
+robot.mouseClick();
+sleep(5000);
+toPaste2('A');
+robot.typeString('06.09.005');
+sleep(5000);
+robot.keyTap('enter');
+
+
+robot.moveMouseSmooth(640, 920);
+robot.mouseClick();
+
+
+robot.moveMouseSmooth(395, 950);
+robot.mouseClick();
+robot.keyTap('1');
+robot.keyTap('tab');
+robot.keyTap('tab');
+robot.keyTap('3');
+sleep(1000);
+robot.moveMouseSmooth(130, 1050);
+robot.mouseClick();
 
 export default clicker;
