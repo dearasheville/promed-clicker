@@ -4,20 +4,24 @@
 import clicker from './bin/medicalClicker';
 import spreadsheet from './bin/medicalSpreadsheet';
 
-const line = spreadsheet[0];
+const getData = (array) => {
+  const line = spreadsheet[0];
 
-const person = line[0].split(' ');
+  const person = array[0].split(' ');
 
-const surname = person[0];
-const name = person[1];
-const pathronymic = person[2];
-const birth = line[1];
+  const surname = person[0];
+  const name = person[1];
+  const pathronymic = person[2];
+  const birth = array[1];
 
-const department = line[2];
-const clinician = line[3];
-const diseaseCode = line[4];
+  const department = array[2];
+  const clinician = array[3];
+  const diseaseCode = array[4];
 
-const visitCode = line[5];
-const medicalService = line[6];
+  const visitCode = array[5];
+  const medicalService = array[6];
 
-clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService);
+  return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService);
+};
+
+spreadsheet.forEach(elem => getData(elem));
