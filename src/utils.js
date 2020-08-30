@@ -15,7 +15,7 @@ const toPaste = {
     robot.mouseClick();
     robot.mouseClick('right');
 
-    robot.moveMouse(robot.getMousePos()['x'] + 100, robot.getMousePos()['y'] + 190);
+    robot.moveMouse(robot.getMousePos().x + 100, robot.getMousePos().y + 190);
     robot.mouseClick();
   },
   upper: (data) => {
@@ -24,7 +24,7 @@ const toPaste = {
     robot.mouseClick();
     robot.mouseClick('right');
 
-    robot.moveMouseSmooth(robot.getMousePos()['x'] + 140, robot.getMousePos()['y'] - 245);
+    robot.moveMouseSmooth(robot.getMousePos().x + 140, robot.getMousePos().y - 245);
     robot.mouseClick();
   },
 };

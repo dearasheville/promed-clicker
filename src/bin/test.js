@@ -2,8 +2,10 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import sleep from '../utils';
+import { sleep, toPaste } from '../utils';
 
 sleep(5000);
 
-console.log(robot.getMousePos());
+toPaste.lower('dad');
+
+// console.log(robot.getMousePos());
