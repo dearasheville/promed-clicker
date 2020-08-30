@@ -10,15 +10,27 @@ import service from '../clicker/service';
 
 import { sleep } from '../utils';
 
+robot.setMouseDelay(50);
+
 // const clicker = (surname, name, path, birth) => sleep(5000);
+
+sleep(2500);
+
+// search();
+// direction();
 
 
 robot.moveMouse(114, 599);
 robot.mouseClick();
+
 sleep(5000);
 
 robot.moveMouse(1405, 1010);
 robot.mouseClick();
+
+visit();
+
+/**
 
 
 
@@ -54,3 +66,5 @@ robot.moveMouseSmooth(130, 1050);
 robot.mouseClick();
 
 export default clicker;
+
+ */
