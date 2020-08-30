@@ -4,25 +4,25 @@
 import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
-const search = () => {
+const search = (surname, name, pathronymic, birth) => {
   // "Человек: поиск", фамилия
   robot.moveMouse(480, 335);
-  toPaste.lower('Серов');
+  toPaste.lower(surname);
   sleep(1000);
 
   // "Человек: поиск", имя
   robot.moveMouse(805, 335);
-  toPaste.lower('Денис');
+  toPaste.lower(name);
   sleep(1000);
 
   // "Человек: поиск", отчество
   robot.moveMouse(1135, 335);
-  toPaste.lower('Оскарович');
+  toPaste.lower(pathronymic);
   sleep(1000);
 
   // "Человек: поиск", дата рождения
   robot.moveMouse(480, 395);
-  toPaste.lower('23.05.1995');
+  toPaste.lower(birth);
   sleep(1000);
 
   // "Человек: поиск", подтверждение заполнения формы

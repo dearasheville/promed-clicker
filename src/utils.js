@@ -8,6 +8,11 @@ const sleep = (ms) => {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 };
 
+const toClick = (x, y) => {
+  robot.moveMouse(x, y);
+  robot.mouseClick();
+};
+
 const toPaste = {
   lower: (data) => {
     clipboardy.writeSync(data);
@@ -29,4 +34,4 @@ const toPaste = {
   },
 };
 
-export { sleep, toPaste };
+export { sleep, toClick, toPaste };

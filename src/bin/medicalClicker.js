@@ -14,40 +14,42 @@ import { sleep } from '../utils';
 
 robot.setMouseDelay(50);
 
-// const clicker = (surname, name, path, birth) => sleep(5000);
+const clicker = (surname, name, pathronymic, birth) => {
+  search(surname, name, pathronymic, birth);
 
-search();
+  sleep(5000);
 
-sleep(5000);
+  /*
+  direction();
 
-direction();
+  robot.moveMouse(114, 599);
+  robot.mouseClick();
 
-robot.moveMouse(114, 599);
-robot.mouseClick();
+  sleep(5000);
 
-sleep(5000);
+  surveillance();
 
-surveillance();
+  visit();
 
-visit();
+  sleep(5000);
 
-sleep(5000);
+  robot.moveMouse(135, 765);
+  robot.mouseClick();
 
-robot.moveMouse(135, 765);
-robot.mouseClick();
+  sleep(2000);
 
-sleep(2000);
+  robot.moveMouse(135, 795);
+  robot.mouseClick();
 
-robot.moveMouse(135, 795);
-robot.mouseClick();
+  service();
 
-service();
+  sleep(5000);
 
-sleep(5000);
+  result();
 
-result();
-
-robot.moveMouseSmooth(130, 1050);
-robot.mouseClick();
+  robot.moveMouseSmooth(130, 1050);
+  robot.mouseClick();
+  */
+};
 
 export default clicker;
