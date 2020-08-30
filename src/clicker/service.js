@@ -5,18 +5,20 @@ import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
 const service = () => {
-  robot.moveMouseSmooth(750, 800);
+  robot.moveMouse(750, 800);
   robot.mouseClick();
 
-  sleep(5000);
+  sleep(2500);
 
   toPaste.upper('A');
-
   robot.typeString('06.09.005');
 
-  sleep(5000);
+  sleep(2500);
 
   robot.keyTap('enter');
+
+  robot.moveMouse(640, 920);
+  robot.mouseClick();
 };
 
 export default service;

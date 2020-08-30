@@ -4,8 +4,6 @@
 import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
-sleep(5000);
+sleep(2500);
 
-toPaste.lower('dad');
-
-// console.log(robot.getMousePos());
+console.log(robot.getMousePos());

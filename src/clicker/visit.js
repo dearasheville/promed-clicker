@@ -13,9 +13,12 @@ const visit = () => {
   // "Посещение пациентом поликлиники: Добавление", код посещения
   robot.moveMouse(304, 564);
   robot.mouseClick();
-  sleep(2000);
+
+  sleep(1000);
+
   robot.typeString('874737');
-  sleep(3000);
+
+  sleep(2500);
   robot.keyTap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", характер
