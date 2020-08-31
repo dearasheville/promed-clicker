@@ -4,16 +4,20 @@
 import robot from 'robotjs';
 import { sleep, toPaste } from '../utils';
 
-const service = () => {
-  robot.moveMouse(750, 800);
+const service = (medicalService) => {
+  while (robot.getPixelColor(1068, 807) !== 'ccffcc') {
+    sleep(100);
+  }
+
+  robot.moveMouse(755, 805);
   robot.mouseClick();
 
-  sleep(2500);
-
   toPaste.upper('A');
-  robot.typeString('06.09.005');
+  robot.typeString(medicalService);
 
-  sleep(2500);
+  while (robot.getPixelColor(747, 854) !== 'fbf0d2') {
+    sleep(100);
+  }
 
   robot.keyTap('enter');
 
