@@ -2,7 +2,9 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { toSleep, toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
+import clipboardy from 'clipboardy';
+
+import { toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel } from '../utils';
 
 const visit = (diseaseCode, visitCode) => {
   // "Посещение пациентом поликлиники: Добавление", вид обращения
@@ -22,7 +24,23 @@ const visit = (diseaseCode, visitCode) => {
   robot.keyTap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", диагноз
-  toClick.normal(315, 955);
+  robot.moveMouse(513, 194);
+  robot.mouseClick('left', true);
+  toCopy.lower();
+
+  const sex = clipboardy.readSync();
+
+  switch (sex) {
+    case 'Мужской':
+      toClick.normal(315, 925);
+      break;
+    case 'Женский':
+      toClick.normal(315, 955);
+      break;
+    default:
+      break;
+  }
+
   toPaste.upper(diseaseCode.slice(0, 1));
   robot.typeString(diseaseCode);
   robot.keyTap('enter');
@@ -32,9 +50,21 @@ const visit = (diseaseCode, visitCode) => {
   toSleep(5000);
 
   // "Посещение пациентом поликлиники: Добавление", характер
-  sleepUntilGetCorrectPixel(330, 995, 'ccffcc');
+  switch (sex) {
+    case 'Мужской':
+      sleepUntilGetCorrectPixel(330, 960, 'ccffcc');
 
-  toClick.normal(330, 995);
+      toClick.normal(330, 960);
+      break;
+    case 'Женский':
+      sleepUntilGetCorrectPixel(330, 995, 'ccffcc');
+
+      toClick.normal(330, 995);
+      break;
+    default:
+      break;
+  }
+
   robot.keyTap(3);
 
   sleepUntilGetCorrectPixel(110, 1050, '92a4b4');

@@ -36,7 +36,6 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
   toSleep(10000);
 
   toClick.smooth(110, 755);
-
   toClick.smooth(148, 785);
 
   if (service(medicalService) === false) {
@@ -45,7 +44,6 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
     sleepUntilGetCorrectPixel(339, 720, '505e72');
 
     toClick.smooth(135, 765);
-
     toClick.smooth(135, 795);
 
     service(medicalService);

@@ -18,4 +18,6 @@ const tnm = () => {
   toClick.smooth(130, 1050);
 };
 
+// tnm();
+
 export default tnm;

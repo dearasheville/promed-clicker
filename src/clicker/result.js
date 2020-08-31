@@ -5,7 +5,7 @@ import robot from 'robotjs';
 import { toClick, sleepUntilGetCorrectPixel } from '../utils';
 
 const result = () => {
-  toClick(395, 950);
+  toClick.normal(395, 950);
   robot.keyTap('1');
 
   robot.keyTap('tab');

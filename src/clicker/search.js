@@ -18,7 +18,7 @@ const search = (surname, name, pathronymic, birth) => {
   toPaste.lower(pathronymic);
 
   // "Человек: поиск", дата рождения
-  toClick.normal(480, 395);
+  toClick.normal(555, 395);
   toPaste.lower(birth);
 
   // "Человек: поиск", подтверждение заполнения формы
