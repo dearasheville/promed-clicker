@@ -4,14 +4,27 @@
 import robot from 'robotjs';
 import clipboardy from 'clipboardy';
 
-const sleep = (ms) => {
+const toSleep = (ms) => {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 };
 
-const toClick = (x, y) => {
-  robot.moveMouse(x, y);
-  robot.mouseClick();
+const toClick = {
+  normal: (x, y) => {
+    robot.moveMouse(x, y);
+
+    toSleep(1000);
+
+    robot.mouseClick();
+  },
+  smooth: (x, y) => {
+    robot.moveMouseSmooth(x, y);
+
+    toSleep(1000);
+
+    robot.mouseClick();
+  },
 };
+
 
 const toPaste = {
   lower: (data) => {
@@ -20,7 +33,7 @@ const toPaste = {
     robot.mouseClick();
     robot.mouseClick('right');
 
-    sleep(1000);
+    toSleep(1000);
 
     robot.moveMouse(robot.getMousePos().x + 100, robot.getMousePos().y + 190);
     robot.mouseClick();
@@ -31,11 +44,19 @@ const toPaste = {
     robot.mouseClick();
     robot.mouseClick('right');
 
-    sleep(1000);
+    toSleep(1000);
 
     robot.moveMouseSmooth(robot.getMousePos().x + 140, robot.getMousePos().y - 245);
     robot.mouseClick();
   },
 };
 
-export { sleep, toClick, toPaste };
+const sleepUntilGetCorrectPixel = (x, y, color) => {
+  while (robot.getPixelColor(x, y) !== color) {
+    toSleep(100);
+  }
+};
+
+export {
+  toSleep, toClick, toPaste, sleepUntilGetCorrectPixel,
+};
