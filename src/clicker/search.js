@@ -8,28 +8,29 @@ const search = (surname, name, pathronymic, birth) => {
   // "Человек: поиск", фамилия
   robot.moveMouse(480, 335);
   toPaste.lower(surname);
-  sleep(1000);
 
   // "Человек: поиск", имя
   robot.moveMouse(805, 335);
   toPaste.lower(name);
-  sleep(1000);
 
   // "Человек: поиск", отчество
   robot.moveMouse(1135, 335);
   toPaste.lower(pathronymic);
-  sleep(1000);
 
   // "Человек: поиск", дата рождения
   robot.moveMouse(480, 395);
   toPaste.lower(birth);
-  sleep(1000);
 
   // "Человек: поиск", подтверждение заполнения формы
   robot.keyTap('enter');
-  sleep(2500);
+
+  while (robot.getPixelColor(572, 820) !== 'fbf0d2') {
+    sleep(100);
+  }
 
   robot.keyTap('enter');
 };
+
+// search('Каргина', 'Елена', 'Геннадьевна', '17.07.1973');
 
 export default search;
