@@ -7,9 +7,7 @@ import { toSleep, toClick, toPaste } from '../utils';
 const direction = (department, clinician, diseaseCode) => {
   // "Данные о направлении", кем направлен
   toClick.normal(365, 335);
-
   robot.keyTap('1');
-
   toClick.normal(290, 400);
 
   toSleep(5000);

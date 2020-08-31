@@ -1,10 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 
-import robot from 'robotjs';
-
 import { toClick } from '../utils';
-
 
 // "Наблюдение за пациентом: Добавление", отмена
 const surveillance = () => {

@@ -19,7 +19,6 @@ const service = (medicalService) => {
   sleepUntilGetCorrectPixel(747, 854, 'fbf0d2');
 
   robot.keyTap('enter');
-
   toClick.normal(640, 920);
 };
 
