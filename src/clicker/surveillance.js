@@ -3,10 +3,12 @@
 
 import robot from 'robotjs';
 
+import { toClick } from '../utils';
+
+
 // "Наблюдение за пациентом: Добавление", отмена
 const surveillance = () => {
-  robot.moveMouse(1405, 1010);
-  robot.mouseClick();
+  toClick.normal(1405, 1010);
 };
 
 export default surveillance;

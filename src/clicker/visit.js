@@ -2,64 +2,44 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { sleep, toPaste } from '../utils';
+import { toSleep, toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
 
 const visit = (diseaseCode, visitCode) => {
   // "Посещение пациентом поликлиники: Добавление", вид обращения
-  while (robot.getPixelColor(321, 371) !== 'ccffcc') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(321, 371, 'ccffcc');
 
-  robot.moveMouse(301, 368);
-  robot.mouseClick();
+  toClick.normal(301, 368);
   robot.keyTap(1);
 
   // "Посещение пациентом поликлиники: Добавление", код посещения
-  while (robot.getPixelColor(663, 561) !== 'ccffcc') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(663, 561, 'ccffcc');
 
-  robot.moveMouse(304, 564);
-  robot.mouseClick();
-
+  toClick.normal(304, 564);
   robot.typeString(visitCode);
 
-  while (robot.getPixelColor(319, 611) !== 'fbf0d2') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(319, 611, 'fbf0d2');
 
   robot.keyTap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", диагноз
-  robot.moveMouse(315, 955);
-  robot.mouseClick();
-
+  toClick.normal(315, 955);
   toPaste.upper(diseaseCode.slice(0, 1));
   robot.typeString(diseaseCode);
-
   robot.keyTap('enter');
 
-  robot.moveMouse(900, 955);
-  robot.mouseClick();
+  toClick.normal(900, 955);
 
-  sleep(5000);
+  toSleep(5000);
 
   // "Посещение пациентом поликлиники: Добавление", характер
-  while (robot.getPixelColor(330, 995) !== 'ccffcc') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(330, 995, 'ccffcc');
 
-  robot.moveMouse(330, 995);
-  robot.mouseClick();
-
+  toClick.normal(330, 995);
   robot.keyTap(3);
 
-  while (robot.getPixelColor(110, 1050) !== '92a4b4') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(110, 1050, '92a4b4');
 
-  robot.moveMouse(110, 1050);
-  robot.mouseClick();
+  toClick.normal(110, 1050);
 };
 
 // visit('C44.3', 874737);

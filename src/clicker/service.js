@@ -2,31 +2,27 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { sleep, toPaste } from '../utils';
+import { toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
 
 const service = (medicalService) => {
-  while (robot.getPixelColor(1068, 807) !== 'ccffcc') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(1068, 807, 'ccffcc');
 
   if (robot.getPixelColor(1280, 455) === 'ccffcc') {
     return false;
   }
 
-  robot.moveMouse(755, 805);
-  robot.mouseClick();
+  toClick.normal(755, 805);
 
   toPaste.upper(medicalService.slice(0, 1));
   robot.typeString(medicalService);
 
-  while (robot.getPixelColor(747, 854) !== 'fbf0d2') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(747, 854, 'fbf0d2');
 
   robot.keyTap('enter');
 
-  robot.moveMouse(640, 920);
-  robot.mouseClick();
+  toClick.normal(640, 920);
 };
+
+// service('A06.09.005');
 
 export default service;

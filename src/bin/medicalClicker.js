@@ -4,13 +4,14 @@
 import robot from 'robotjs';
 
 import search from '../clicker/search';
-import direction from '../clicker/direction';
+// import direction from '../clicker/direction';
 import visit from '../clicker/visit';
 import service from '../clicker/service';
 import surveillance from '../clicker/surveillance';
 import result from '../clicker/result';
+import tnm from '../clicker/tnm';
 
-import { sleep } from '../utils';
+import { toSleep, toClick, sleepUntilGetCorrectPixel } from '../utils';
 
 robot.setMouseDelay(100);
 robot.setKeyboardDelay(100);
@@ -20,83 +21,47 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   // direction(department, clinician, diseaseCode);
 
-  while (robot.getPixelColor(225, 495) !== 'ffffff') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(225, 495, 'ffffff');
 
-  robot.moveMouse(114, 599);
-  robot.mouseClick();
+  toClick.normal(114, 599);
 
-  while (robot.getPixelColor(966, 197) !== '36383c') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(966, 197, '36383c');
 
   surveillance();
 
-  while (robot.getPixelColor(225, 495) !== 'ffffff') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(225, 495, 'ffffff');
 
   visit(diseaseCode, visitCode);
 
-  sleep(10000);
+  toSleep(10000);
 
-  robot.moveMouseSmooth(110, 755);
-  robot.mouseClick();
+  toClick.smooth(110, 755);
 
-  robot.moveMouseSmooth(148, 785);
-  robot.mouseClick();
+  toClick.smooth(148, 785);
 
   if (service(medicalService) === false) {
-    robot.moveMouse(1354, 925);
-    robot.mouseClick();
+    toClick.normal(1354, 925);
 
-    while (robot.getPixelColor(339, 720) !== '505e72') {
-      sleep(100);
-    }
+    sleepUntilGetCorrectPixel(339, 720, '505e72');
 
-    robot.moveMouse(135, 765);
-    robot.mouseClick();
+    toClick.smooth(135, 765);
 
-    robot.moveMouse(135, 795);
-    robot.mouseClick();
+    toClick.smooth(135, 795);
 
     service(medicalService);
   }
 
-  while (robot.getPixelColor(93, 974) !== 'ffffff') {
-    sleep(100);
-  }
+  sleepUntilGetCorrectPixel(93, 974, 'ffffff');
 
   result();
 
-  robot.moveMouse(130, 1050);
-  robot.mouseClick();
+  toClick.normal(130, 1050);
 
   if (diseaseCode.slice(0, 1) === 'C') {
-    while (robot.getPixelColor(719, 507) !== '36383c') {
-      sleep(100);
-    }
-
-    robot.moveMouseSmooth(990, 635);
-    robot.mouseClick();
-
-    while (robot.getPixelColor(872, 247) !== 'ffffff') {
-      sleep(100);
-    }
-
-    robot.moveMouseSmooth(1865, 1050);
-    robot.mouseClick();
-
-    while (robot.getPixelColor(878, 896) !== '4d5b6e') {
-      sleep(100);
-    }
-
-    robot.moveMouse(130, 1050);
-    robot.mouseClick();
+    tnm();
   }
 
-  sleep(10000);
+  toSleep(10000);
 };
 
 export default clicker;

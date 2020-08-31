@@ -2,54 +2,48 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { sleep, toPaste } from '../utils';
+import { toSleep, toClick, toPaste } from '../utils';
 
 const direction = (department, clinician, diseaseCode) => {
   // "Данные о направлении", кем направлен
-  robot.moveMouse(365, 335);
-  robot.mouseClick();
+  toClick.normal(365, 335);
+
   robot.keyTap('1');
 
-  robot.moveMouse(290, 400);
-  robot.mouseClick('left', true);
-  sleep(5000);
+  toClick.normal(290, 400);
+
+  toSleep(5000);
 
   /**
   // "Данные о направлении", отделение
-  robot.moveMouse(365, 400);
-  robot.mouseClick();
+  toClick.normal(365, 400);
+
   robot.typeString('10');
   robot.keyTap('backspace');
   robot.keyTap('backspace');
   robot.typeString('1');
 
-  sleep(2500);
+  toSleep(2500);
 
+  toClick.normal(365, 610);
 
-  robot.moveMouse(365, 610);
-  robot.mouseClick();
-
-  sleep(2500);
+  toSleep(2500);
   */
 
   // "Данные о направлении", врач
-  robot.moveMouse(935, 435);
-  robot.mouseClick();
+  toClick.normal(935, 435);
   toPaste.lower(clinician.split(' ')[0]);
 
+  toSleep(5000);
 
-  sleep(5000);
+  toClick.normal(robot.getMousePos().x, robot.getMousePos().y + 10);
 
-  robot.moveMouse(robot.getMousePos().x, robot.getMousePos().y + 10);
-  robot.mouseClick();
-
-  sleep(2500);
+  toSleep(2500);
 
   // "Данные о направлении", диагноз
-  robot.moveMouse(365, 500);
-  robot.mouseClick();
+  toClick.normal(365, 500);
 
-  sleep(2500);
+  toSleep(2500);
 
   toPaste.lower(diseaseCode);
 };
