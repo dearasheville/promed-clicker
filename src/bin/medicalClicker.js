@@ -39,9 +39,7 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   visit(diseaseCode, visitCode);
 
-  while (robot.getPixelColor(339, 715) !== '505e72') {
-    sleep(100);
-  }
+  sleep(10000);
 
   robot.moveMouseSmooth(110, 755);
   robot.mouseClick();
@@ -53,7 +51,7 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
     robot.moveMouse(1354, 925);
     robot.mouseClick();
 
-    while (robot.getPixelColor(339, 715) !== '505e72') {
+    while (robot.getPixelColor(339, 720) !== '505e72') {
       sleep(100);
     }
 

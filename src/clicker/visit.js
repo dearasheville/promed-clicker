@@ -37,6 +37,8 @@ const visit = (diseaseCode, visitCode) => {
   toPaste.upper(diseaseCode.slice(0, 1));
   robot.typeString(diseaseCode);
 
+  robot.keyTap('enter');
+
   robot.moveMouse(900, 955);
   robot.mouseClick();
 
