@@ -34,15 +34,21 @@ const visit = (diseaseCode, visitCode) => {
   robot.moveMouse(315, 955);
   robot.mouseClick();
 
-  toPaste.upper(diseaseCode);
+  toPaste.upper(diseaseCode.slice(0, 1));
+  robot.typeString(diseaseCode);
 
-  // "Посещение пациентом поликлиники: Добавление", характер
-  robot.moveMouse(330, 995);
+  robot.moveMouse(900, 955);
   robot.mouseClick();
 
+  sleep(5000);
+
+  // "Посещение пациентом поликлиники: Добавление", характер
   while (robot.getPixelColor(330, 995) !== 'ccffcc') {
     sleep(100);
   }
+
+  robot.moveMouse(330, 995);
+  robot.mouseClick();
 
   robot.keyTap(3);
 

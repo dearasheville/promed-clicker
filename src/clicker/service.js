@@ -9,10 +9,14 @@ const service = (medicalService) => {
     sleep(100);
   }
 
+  if (robot.getPixelColor(1280, 455) === 'ccffcc') {
+    return false;
+  }
+
   robot.moveMouse(755, 805);
   robot.mouseClick();
 
-  toPaste.upper('A');
+  toPaste.upper(medicalService.slice(0, 1));
   robot.typeString(medicalService);
 
   while (robot.getPixelColor(747, 854) !== 'fbf0d2') {
