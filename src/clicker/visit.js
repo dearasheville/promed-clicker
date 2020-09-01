@@ -24,13 +24,11 @@ const visit = (diseaseCode, visitCode) => {
   robot.keyTap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", диагноз
-  robot.moveMouse(513, 194);
-  robot.mouseClick('left', true);
-  toCopy.lower();
+  const gender = robot.getPixelColor(315, 925) === 'ccffcc' ? 'Мужской' : 'Женский';
 
-  const sex = clipboardy.readSync();
+  console.log(gender);
 
-  switch (sex) {
+  switch (gender) {
     case 'Мужской':
       toClick.normal(315, 925);
       break;
@@ -50,7 +48,7 @@ const visit = (diseaseCode, visitCode) => {
   toSleep(5000);
 
   // "Посещение пациентом поликлиники: Добавление", характер
-  switch (sex) {
+  switch (gender) {
     case 'Мужской':
       sleepUntilGetCorrectPixel(330, 960, 'ccffcc');
 
@@ -70,6 +68,18 @@ const visit = (diseaseCode, visitCode) => {
   sleepUntilGetCorrectPixel(110, 1050, '92a4b4');
 
   toClick.normal(110, 1050);
+
+  toSleep(5000);
+
+  if (robot.getPixelColor(1199, 486) === 'd7d8db') {
+    toClick.normal(1040, 620);
+    toSleep(5000);
+    toClick.normal(1860, 1050);
+    toSleep(5000);
+    toClick.normal(1860, 1050);
+
+    return false;
+  }
 };
 
 // visit('C44.3', 874737);

@@ -31,7 +31,9 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   sleepUntilGetCorrectPixel(225, 495, 'ffffff');
 
-  visit(diseaseCode, visitCode);
+  if (visit(diseaseCode, visitCode) === false) {
+    return '';
+  }
 
   toSleep(10000);
 
