@@ -4,9 +4,39 @@
 import robot from 'robotjs';
 import clipboardy from 'clipboardy';
 
-import { toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel } from '../utils';
+import {
+  toSleep, toClick, toPaste, sleepUntilGetCorrectPixel,
+} from '../utils';
 
-const visit = (diseaseCode, visitCode) => {
+const visit = (diseaseCode, visitCode, diagnost, date) => {
+  // "Посещение пациентом поликлиники: Добавление", дата
+  sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
+  console.log(date);
+  toClick.normal(377, 237);
+  robot.typeString(date);
+
+  // "Посещение пациентом поликлиники: Добавление", врач
+  const diagnosts = [
+    [16069, 'АЛТЫНОВА АЛИЯ ФЕЛИКСОВНА'], [15023, 'БАЯЗИТОВА ЛИЛИЯ ИВАНОВНА'],
+    [16009, 'Серов Оскар Валентинович'], [50405, 'ХУШМУРАДОВА ДИЛАРА ДУСМУРАДОВНА'],
+    [51254, 'Ибрагимов Булат Айдарович'], [50146, 'РЯБОВА ВЕРОНИКА ЮРЬЕВНА'],
+    [20000, 'Сагитова Ирина Радиковна'], [30000, 'Бикметова Ильмира Ринатовна'],
+    [40000, 'Денисова Радмила Андреевна'], [10000, 'Мазитова Алина Фуатовна'],
+    [50000, 'Новиков Денис Алексеевич'], [60000, 'Гареев Алик Маликович'],
+    [70000, 'Халимуллина Светлана Ириковна'],
+  ];
+
+  const diagnostCode = diagnosts.find(elem => (elem[1] === diagnost ? elem : false))[0];
+
+  sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
+
+  toClick.normal(788, 302);
+  robot.typeString(diagnostCode);
+
+  sleepUntilGetCorrectPixel(307, 324, 'fbf0d2');
+
+  robot.keyTap('enter');
+
   // "Посещение пациентом поликлиники: Добавление", вид обращения
   sleepUntilGetCorrectPixel(321, 371, 'ccffcc');
 
@@ -19,6 +49,7 @@ const visit = (diseaseCode, visitCode) => {
   toClick.normal(304, 564);
   robot.typeString(visitCode);
 
+  // "Посещение пациентом поликлиники: Добавление", код посещения - выпадающее меню
   sleepUntilGetCorrectPixel(319, 611, 'fbf0d2');
 
   robot.keyTap('enter');
@@ -82,6 +113,6 @@ const visit = (diseaseCode, visitCode) => {
   }
 };
 
-// visit('C44.3', 874737);
+visit('C44.3', 874737, 'Ибрагимов Булат Айдарович');
 
 export default visit;

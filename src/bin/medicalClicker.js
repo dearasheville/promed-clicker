@@ -16,7 +16,7 @@ import { toSleep, toClick, sleepUntilGetCorrectPixel } from '../utils';
 robot.setMouseDelay(100); // 100
 robot.setKeyboardDelay(100); // 100
 
-const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService) => {
+const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date) => {
   search(surname, name, pathronymic, birth);
 
   // direction(department, clinician, diseaseCode);
@@ -31,9 +31,8 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   sleepUntilGetCorrectPixel(225, 495, 'ffffff');
 
-
   // "Посещение пациентом поликлиники: Добавление", стационар
-  if (visit(diseaseCode, visitCode) === false) {
+  if (visit(diseaseCode, visitCode, diagnost, date) === false) {
     toSleep(10000);
 
     return false;

@@ -7,7 +7,7 @@ import populate from 'xlsx-populate';
 const spreadsheet = xlsx.parse('./spreadsheet.xlsx')[0];
 
 populate.fromFileAsync('./spreadsheet.xlsx').then((workbook) => {
-  workbook.sheet('My Sheet').cell('A1').value(' ');
+  workbook.sheet('My Sheet').cell('A1').value();
 
   return workbook.toFileAsync('./spreadsheet.xlsx');
 });

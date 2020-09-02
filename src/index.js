@@ -21,7 +21,11 @@ const getData = (array) => {
   const visitCode = line[5];
   const medicalService = line[6];
 
-  return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService);
+  const diagnost = line[7];
+
+  const date = line[8];
+
+  return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
 };
 
 spreadsheet.forEach(elem => getData(elem));
