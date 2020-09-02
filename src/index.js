@@ -16,14 +16,14 @@ const getData = (array) => {
 
   const department = line[2];
   const clinician = line[3];
-  const diseaseCode = line[4];
+  const diseaseCode = String(line[4]);
 
-  const visitCode = line[5];
-  const medicalService = line[6];
+  const visitCode = String(line[5]);
+  const medicalService = String(`A${line[6].slice(1)}`);
 
-  const diagnost = line[7];
+  const diagnost = String(line[7].split(' ').join(' '));
 
-  const date = line[8];
+  const date = String(line[8]);
 
   return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
 };

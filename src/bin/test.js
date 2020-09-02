@@ -16,4 +16,3 @@ console.log(robot.getPixelColor(robot.getMousePos().x, robot.getMousePos().y));
 
 // const test = clipboardy.readSync();
 // console.log(test.indexOf('874737'));
-

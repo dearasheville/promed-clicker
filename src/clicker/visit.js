@@ -8,10 +8,13 @@ import {
   toSleep, toClick, toPaste, sleepUntilGetCorrectPixel,
 } from '../utils';
 
+robot.setMouseDelay(100); // 100
+robot.setKeyboardDelay(500); // 100
+
 const visit = (diseaseCode, visitCode, diagnost, date) => {
   // "Посещение пациентом поликлиники: Добавление", дата
   sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
-  console.log(date);
+
   toClick.normal(377, 237);
   robot.typeString(date);
 
@@ -26,7 +29,7 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
     [70000, 'Халимуллина Светлана Ириковна'],
   ];
 
-  const diagnostCode = diagnosts.find(elem => (elem[1] === diagnost ? elem : false))[0];
+  const diagnostCode = diagnosts.find(elem => (elem[1].split(' ').join(' ') === diagnost ? elem : false))[0];
 
   sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
 
@@ -96,8 +99,6 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   robot.keyTap(3);
 
-  sleepUntilGetCorrectPixel(110, 1050, '92a4b4');
-
   toClick.normal(110, 1050);
 
   toSleep(5000);
@@ -113,6 +114,6 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   }
 };
 
-visit('C44.3', 874737, 'Ибрагимов Булат Айдарович');
+// visit('C44.3', 874737, 'Ибрагимов Булат Айдарович', '31.08.2020');
 
 export default visit;

@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
+import { toClick, toPaste, sleepUntilGetCorrectPixel, toSleep } from '../utils';
 
 const service = (medicalService) => {
   sleepUntilGetCorrectPixel(1068, 807, 'ccffcc');
@@ -11,10 +11,13 @@ const service = (medicalService) => {
     return false;
   }
 
-  toClick.normal(755, 805);
+  toClick.normal(1305, 803);
 
   toPaste.upper(medicalService.slice(0, 1));
-  robot.typeString(medicalService);
+
+  toSleep(2500);
+
+  robot.typeString(medicalService.slice(1));
 
   sleepUntilGetCorrectPixel(747, 854, 'fbf0d2');
 
