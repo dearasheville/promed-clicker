@@ -67,4 +67,6 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
   toSleep(10000);
 };
 
+clicker();
+
 export default clicker;
