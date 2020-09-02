@@ -1,6 +1,6 @@
 {
   "name": "promed-clicker",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "dependencies": {
     "windows-build-tools": "^5.2.2",

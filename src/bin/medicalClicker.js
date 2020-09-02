@@ -34,6 +34,8 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   // "Посещение пациентом поликлиники: Добавление", стационар
   if (visit(diseaseCode, visitCode) === false) {
+    toSleep(10000);
+
     return false;
   }
 
