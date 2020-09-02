@@ -3,6 +3,7 @@
 
 import robot from 'robotjs';
 import clipboardy from 'clipboardy';
+import populate from 'xlsx-populate';
 
 const toSleep = (ms) => {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
@@ -72,6 +73,18 @@ const sleepUntilGetCorrectPixel = (x, y, color) => {
     toSleep(100);
   }
 };
+
+/**
+const saveToXlsx = (num, text) => {
+  populate.fromFileAsync('spreadsheet.xlsx').then((workbook) => {
+    workbook.sheet('My Sheet').cell(`H${num}`).value(text);
+
+    workbook.toFileAsync('spreadsheet.xlsx');
+  });
+
+  toSleep(5000);
+};
+*/
 
 export {
   toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel,

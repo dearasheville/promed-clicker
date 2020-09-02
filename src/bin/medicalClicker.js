@@ -13,15 +13,15 @@ import tnm from '../clicker/tnm';
 
 import { toSleep, toClick, sleepUntilGetCorrectPixel } from '../utils';
 
-robot.setMouseDelay(100);
-robot.setKeyboardDelay(100);
+robot.setMouseDelay(100); // 100
+robot.setKeyboardDelay(100); // 100
 
 const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService) => {
   search(surname, name, pathronymic, birth);
 
   // direction(department, clinician, diseaseCode);
 
-  sleepUntilGetCorrectPixel(225, 495, 'ffffff');
+  sleepUntilGetCorrectPixel(720, 197, '556677');
 
   toClick.normal(114, 599);
 
@@ -31,8 +31,10 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   sleepUntilGetCorrectPixel(225, 495, 'ffffff');
 
+
+  // "Посещение пациентом поликлиники: Добавление", стационар
   if (visit(diseaseCode, visitCode) === false) {
-    return '';
+    return false;
   }
 
   toSleep(10000);

@@ -12,4 +12,4 @@ populate.fromFileAsync('./spreadsheet.xlsx').then((workbook) => {
   return workbook.toFileAsync('./spreadsheet.xlsx');
 });
 
-export default spreadsheet.data;
+export default spreadsheet.data.slice(1);
