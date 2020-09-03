@@ -36,6 +36,8 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   toClick.normal(788, 302);
   robot.typeString(diagnostCode);
 
+  toSleep(5000);
+
   sleepUntilGetCorrectPixel(307, 324, 'fbf0d2');
 
   robot.keyTap('enter');
