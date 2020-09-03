@@ -34,6 +34,9 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
 
   toClick.normal(788, 302);
+
+  toSleep(1000);
+
   robot.typeString(diagnostCode);
 
   toSleep(5000);

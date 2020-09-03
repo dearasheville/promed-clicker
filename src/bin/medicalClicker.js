@@ -60,7 +60,7 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   toClick.normal(130, 1050);
 
-  if (diseaseCode.slice(0, 1) === 'C') {
+  if ((diseaseCode.slice(0, 1) === 'C') || (diseaseCode.slice(0, 2) === 'D0')) {
     tnm();
   }
 
