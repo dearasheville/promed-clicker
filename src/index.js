@@ -24,9 +24,9 @@ const getData = (array, first, second) => {
   // const visitCode = String(line[5]);
   // const medicalService = String(`A${line[6].slice(1)}`);
 
-  const diagnost = String(line[7].split(' ').join(' '));
+  const diagnost = String(line[8].split(' ').join(' '));
 
-  const date = String(line[6]);
+  const date = String(line[7]);
   // console.log(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
   return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
 };

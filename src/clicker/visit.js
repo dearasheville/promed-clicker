@@ -5,11 +5,30 @@ import robot from 'robotjs';
 import clipboardy from 'clipboardy';
 
 import {
-  toSleep, toClick, toPaste, sleepUntilGetCorrectPixel,
+  toSleep, toClick, toPaste, sleepUntilGetCorrectPixel, toCopy,
 } from '../utils';
 
 robot.setMouseDelay(100); // 100
 robot.setKeyboardDelay(500); // 100
+
+const hospital = () => {
+  if (robot.getPixelColor(1199, 486) === 'd7d8db') {
+    toCopy.test();
+    const isOncology = clipboardy.readSync().indexOf('ГАУЗ РКОД МЗ РБ') !== -1;
+
+    if (isOncology) {
+      toClick.normal(1040, 620);
+      toSleep(5000);
+      toClick.normal(1860, 1050);
+      toSleep(5000);
+      toClick.normal(1860, 1050);
+
+      return false;
+    }
+
+    toClick.normal(940, 620);
+  }
+};
 
 const visit = (diseaseCode, visitCode, diagnost, date) => {
   // "Посещение пациентом поликлиники: Добавление", дата
@@ -49,7 +68,17 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   sleepUntilGetCorrectPixel(321, 371, 'ccffcc');
 
   toClick.normal(301, 368);
-  robot.keyTap(1);
+  if (diseaseCode.slice(0, 1) === 'Z') {
+    robot.keyTap(2);
+    robot.keyTap('tab');
+
+    sleepUntilGetCorrectPixel(321, 466, 'ccffcc');
+
+    toClick.normal(321, 466);
+    robot.keyTap(2);
+  } else {
+    robot.keyTap(1);
+  }
 
   // "Посещение пациентом поликлиники: Добавление", код посещения
   sleepUntilGetCorrectPixel(663, 561, 'ccffcc');
@@ -87,6 +116,14 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   toSleep(5000);
 
   // "Посещение пациентом поликлиники: Добавление", характер
+  if (diseaseCode.slice(0, 1) === 'Z') {
+    toClick.normal(110, 1050);
+
+    toSleep(5000);
+
+    return hospital() === true;
+  }
+
   switch (gender) {
     case 'Мужской':
       sleepUntilGetCorrectPixel(330, 960, 'ccffcc');
@@ -108,16 +145,9 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   toSleep(5000);
 
-  if (robot.getPixelColor(1199, 486) === 'd7d8db') {
-    toClick.normal(1040, 620);
-    toSleep(5000);
-    toClick.normal(1860, 1050);
-    toSleep(5000);
-    toClick.normal(1860, 1050);
-
-    return false;
-  }
+  return hospital() === true;
 };
+
 
 // visit('C44.3', 874737, 'Ибрагимов Булат Айдарович', '31.08.2020');
 

@@ -58,6 +58,17 @@ const toCopy = {
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
     robot.mouseClick();
   },
+  test: () => {
+    toClick.normal(729, 545);
+    robot.mouseClick('left', true);
+
+    robot.mouseClick('right');
+
+    toSleep(1000);
+
+    robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
+    robot.mouseClick();
+  },
   upper: () => {
     robot.mouseClick('right');
 
