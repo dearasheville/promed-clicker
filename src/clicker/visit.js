@@ -28,7 +28,10 @@ const hospital = () => {
 
     toClick.normal(940, 620);
   }
+
+  return true;
 };
+
 
 const visit = (diseaseCode, visitCode, diagnost, date) => {
   // "Посещение пациентом поликлиники: Добавление", дата
