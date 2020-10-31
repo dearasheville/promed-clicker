@@ -13,15 +13,17 @@ import tnm from '../clicker/tnm';
 
 import { toSleep, toClick, sleepUntilGetCorrectPixel } from '../utils';
 
-robot.setMouseDelay(100); // 100
-robot.setKeyboardDelay(100); // 100
+robot.setMouseDelay(10); // 100
+robot.setKeyboardDelay(10); // 100
 
 const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date) => {
   search(surname, name, pathronymic, birth);
 
   // direction(department, clinician, diseaseCode);
 
-  sleepUntilGetCorrectPixel(720, 197, '556677');
+  // sleepUntilGetCorrectPixel(720, 197, '556677');
+
+  toSleep(2500);
 
   toClick.normal(114, 599);
 
@@ -33,12 +35,12 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   // "Посещение пациентом поликлиники: Добавление", стационар
   if (visit(diseaseCode, visitCode, diagnost, date) === false) {
-    toSleep(10000);
+    toSleep(5000);
 
     return false;
   }
 
-  toSleep(10000);
+  toSleep(2500);
 
   toClick.smooth(110, 755);
   toClick.smooth(148, 785);
@@ -64,7 +66,11 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
     tnm();
   }
 
-  toSleep(10000);
+  sleepUntilGetCorrectPixel(1424, 195, 'd7d8db');
+
+  toSleep(2500);
+
+  return 1;
 };
 
 export default clicker;

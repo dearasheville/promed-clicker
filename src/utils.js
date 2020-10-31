@@ -13,14 +13,14 @@ const toClick = {
   normal: (x, y) => {
     robot.moveMouse(x, y);
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.mouseClick();
   },
   smooth: (x, y) => {
     robot.moveMouseSmooth(x, y);
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.mouseClick();
   },
@@ -32,7 +32,7 @@ const toPaste = {
 
     robot.mouseClick('right');
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.moveMouse(robot.getMousePos().x + 100, robot.getMousePos().y + 190);
     robot.mouseClick();
@@ -42,7 +42,7 @@ const toPaste = {
 
     robot.mouseClick('right');
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 280);
     robot.mouseClick();
@@ -53,7 +53,7 @@ const toCopy = {
   lower: () => {
     robot.mouseClick('right');
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
     robot.mouseClick();
@@ -64,7 +64,7 @@ const toCopy = {
 
     robot.mouseClick('right');
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
     robot.mouseClick();
@@ -72,16 +72,16 @@ const toCopy = {
   upper: () => {
     robot.mouseClick('right');
 
-    toSleep(1000);
+    toSleep(250);
 
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y - 400);
     robot.mouseClick();
   },
 };
 
-const sleepUntilGetCorrectPixel = (x, y, color) => {
-  while (robot.getPixelColor(x, y) !== color) {
-    toSleep(100);
+const sleepUntilGetCorrectPixel = (x, y, color, color2 = color) => {
+  while ((robot.getPixelColor(x, y) !== color) || (robot.getPixelColor(x, y) !== color2)) {
+    toSleep(500);
   }
 };
 

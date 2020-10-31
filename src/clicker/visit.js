@@ -8,19 +8,22 @@ import {
   toSleep, toClick, toPaste, sleepUntilGetCorrectPixel, toCopy,
 } from '../utils';
 
-robot.setMouseDelay(100); // 100
-robot.setKeyboardDelay(500); // 100
+robot.setMouseDelay(10); // 100
+robot.setKeyboardDelay(10); // 100
 
 const hospital = () => {
-  if (robot.getPixelColor(1199, 486) === 'd7d8db') {
+  toSleep(5000);
+  
+  if (robot.getPixelColor(1308, 196) === 'd0d1d4') {
     toCopy.test();
+
     const isOncology = clipboardy.readSync().indexOf('ГАУЗ РКОД МЗ РБ') !== -1;
 
     if (isOncology) {
       toClick.normal(1040, 620);
-      toSleep(5000);
+      toSleep(2500);
       toClick.normal(1860, 1050);
-      toSleep(5000);
+      toSleep(2500);
       toClick.normal(1860, 1050);
 
       return false;
@@ -55,13 +58,12 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   sleepUntilGetCorrectPixel(788, 302, 'ccffcc');
 
+
   toClick.normal(788, 302);
 
   toSleep(1000);
 
   robot.typeString(diagnostCode);
-
-  toSleep(5000);
 
   sleepUntilGetCorrectPixel(307, 324, 'fbf0d2');
 
@@ -87,7 +89,12 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   sleepUntilGetCorrectPixel(663, 561, 'ccffcc');
 
   toClick.normal(304, 564);
+
+  toSleep(500);
+
   robot.typeString(visitCode);
+
+  toSleep(750);
 
   // "Посещение пациентом поликлиники: Добавление", код посещения - выпадающее меню
   sleepUntilGetCorrectPixel(319, 611, 'fbf0d2');
@@ -96,8 +103,6 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   // "Посещение пациентом поликлиники: Добавление", диагноз
   const gender = robot.getPixelColor(315, 925) === 'ccffcc' ? 'Мужской' : 'Женский';
-
-  console.log(gender);
 
   switch (gender) {
     case 'Мужской':
@@ -112,17 +117,21 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   toPaste.upper(diseaseCode.slice(0, 1));
   robot.typeString(diseaseCode);
-  robot.keyTap('enter');
 
-  toClick.normal(900, 955);
+  toSleep(1000);
 
-  toSleep(5000);
+  robot.keyTap('tab');
+
+  toSleep(1000);
+
+  // toClick.normal(900, 955);
+
 
   // "Посещение пациентом поликлиники: Добавление", характер
   if (diseaseCode.slice(0, 1) === 'Z') {
     toClick.normal(110, 1050);
 
-    toSleep(5000);
+    toSleep(1000);
 
     return hospital() === true;
   }
@@ -144,9 +153,11 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
 
   robot.keyTap(3);
 
+  toSleep(1000);
+
   toClick.normal(110, 1050);
 
-  toSleep(5000);
+  toSleep(1000);
 
   return hospital() === true;
 };

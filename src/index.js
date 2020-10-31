@@ -3,6 +3,7 @@
 
 import clicker from './bin/medicalClicker';
 import spreadsheet from './bin/medicalSpreadsheet';
+import { toSleep } from './utils';
 
 const getData = (array, first, second) => {
   const line = array;
