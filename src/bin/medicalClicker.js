@@ -27,7 +27,7 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   toClick.normal(114, 599);
 
-  sleepUntilGetCorrectPixel(966, 197, '36383c');
+  sleepUntilGetCorrectPixel(1117, 269, 'ccffcc');
 
   surveillance();
 

@@ -13,7 +13,7 @@ robot.setKeyboardDelay(10); // 100
 
 const hospital = () => {
   toSleep(5000);
-  
+
   if (robot.getPixelColor(1308, 196) === 'd0d1d4') {
     toCopy.test();
 
@@ -102,11 +102,11 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   robot.keyTap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", диагноз
-  const gender = robot.getPixelColor(315, 925) === 'ccffcc' ? 'Мужской' : 'Женский';
+  const gender = robot.getPixelColor(315, 925) === 'ccffcc' ? 'Мужской' : 'Мужской'; // Женский
 
   switch (gender) {
     case 'Мужской':
-      toClick.normal(315, 925);
+      toClick.normal(550, 900); // 925
       break;
     case 'Женский':
       toClick.normal(315, 955);
@@ -136,21 +136,6 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
     return hospital() === true;
   }
 
-  switch (gender) {
-    case 'Мужской':
-      sleepUntilGetCorrectPixel(330, 960, 'ccffcc');
-
-      toClick.normal(330, 960);
-      break;
-    case 'Женский':
-      sleepUntilGetCorrectPixel(330, 995, 'ccffcc');
-
-      toClick.normal(330, 995);
-      break;
-    default:
-      break;
-  }
-
   robot.keyTap(3);
 
   toSleep(1000);
@@ -162,7 +147,6 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   return hospital() === true;
 };
 
-
-// visit('C44.3', 874737, 'Ибрагимов Булат Айдарович', '31.08.2020');
+// visit('D10', 874737, 'Ибрагимов Булат Айдарович', '31.08.2020');
 
 export default visit;

@@ -44,7 +44,7 @@ const toPaste = {
 
     toSleep(250);
 
-    robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 280);
+    robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 210);
     robot.mouseClick();
   },
 };
