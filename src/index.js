@@ -28,8 +28,16 @@ const getData = (array, first, second) => {
   const diagnost = String(line[8].split(' ').join(' '));
 
   const date = String(line[7]);
-  // console.log(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
-  return clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
+
+  const isTheTicketFilledCorrect = () => {
+    const ticketResultMessage = clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
+
+    toSleep(2500);
+
+    return ticketResultMessage ? true : isTheTicketFilledCorrect();
+  };
+
+  return isTheTicketFilledCorrect();
 };
 
 /**

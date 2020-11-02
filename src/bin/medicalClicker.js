@@ -45,15 +45,27 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
   toClick.smooth(110, 755);
   toClick.smooth(148, 785);
 
-  if (service(medicalService) === false) {
-    toClick.normal(1354, 925);
+  /*
+  if (service(medicalService) === false) { // Оптимизация при непрогрузке интерфейса услуги на низких скоростях.
+    toClick.normal(1354, 925); // Закрытие меню услуги.
 
-    sleepUntilGetCorrectPixel(339, 720, '505e72');
+    sleepUntilGetCorrectPixel(339, 720, '505e72'); // Градиент. Нерабочая проверка. Вечный сон.
 
     toClick.smooth(135, 765);
     toClick.smooth(135, 795);
 
     service(medicalService);
+  }
+  */
+
+  if (service(medicalService) === false) { // Оптимизация при баге интерфейса посещения.
+    toClick.normal(1354, 925); // Закрытие меню услуги.
+
+    toSleep(2500);
+
+    toClick.normal(1860, 1050); // Закрытие талона.
+
+    return false;
   }
 
   sleepUntilGetCorrectPixel(93, 974, 'ffffff');
@@ -68,9 +80,7 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
 
   sleepUntilGetCorrectPixel(1424, 195, 'd7d8db');
 
-  toSleep(2500);
-
-  return 1;
+  return true; // Выполнены все условия, перезабитие талона не требуется.
 };
 
 export default clicker;

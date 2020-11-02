@@ -12,6 +12,7 @@ import { toClick, toSleep, toPaste, toCopy } from '../utils';
 
 console.log(robot.getMousePos());
 console.log(robot.getPixelColor(robot.getMousePos().x, robot.getMousePos().y));
+
 // console.log(robot.getPixelColor(103, 842));
 
 // const test = clipboardy.readSync();
