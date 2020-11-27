@@ -13,21 +13,20 @@ import tnm from '../clicker/tnm';
 
 import { toSleep, toClick, sleepUntilGetCorrectPixel } from '../utils';
 
-robot.setMouseDelay(10); // 100
-robot.setKeyboardDelay(10); // 100
+robot.setMouseDelay(100); // 100
+robot.setKeyboardDelay(100); // 100
 
 const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date) => {
   search(surname, name, pathronymic, birth);
 
+  sleepUntilGetCorrectPixel(80, 660, 'fbf0d2');
+
   // direction(department, clinician, diseaseCode);
 
-  // sleepUntilGetCorrectPixel(720, 197, '556677');
-
-  toSleep(2500);
-
+  // "Посещения: Добавить"
   toClick.normal(114, 599);
 
-  sleepUntilGetCorrectPixel(1117, 269, 'ccffcc');
+  sleepUntilGetCorrectPixel(800, 507, 'ccffcc');
 
   surveillance();
 
@@ -37,26 +36,14 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
   if (visit(diseaseCode, visitCode, diagnost, date) === false) {
     toSleep(5000);
 
-    return false;
+    return true;
   }
 
-  toSleep(2500);
+  sleepUntilGetCorrectPixel(75, 660, 'fbf0d2');
+  sleepUntilGetCorrectPixel(75, 825, 'ffffff');
 
   toClick.smooth(110, 755);
   toClick.smooth(148, 785);
-
-  /*
-  if (service(medicalService) === false) { // Оптимизация при непрогрузке интерфейса услуги на низких скоростях.
-    toClick.normal(1354, 925); // Закрытие меню услуги.
-
-    sleepUntilGetCorrectPixel(339, 720, '505e72'); // Градиент. Нерабочая проверка. Вечный сон.
-
-    toClick.smooth(135, 765);
-    toClick.smooth(135, 795);
-
-    service(medicalService);
-  }
-  */
 
   if (service(medicalService) === false) { // Оптимизация при баге интерфейса посещения.
     toClick.normal(1354, 925); // Закрытие меню услуги.
@@ -75,10 +62,10 @@ const clicker = (surname, name, pathronymic, birth, department, clinician, disea
   toClick.normal(130, 1050);
 
   if ((diseaseCode.slice(0, 1) === 'C') || (diseaseCode.slice(0, 2) === 'D0')) {
-    tnm();
+    tnm(surname, name, pathronymic);
   }
 
-  sleepUntilGetCorrectPixel(1424, 195, 'd7d8db');
+  // sleepUntilGetCorrectPixel(1424, 195, 'd7d8db');
 
   return true; // Выполнены все условия, перезабитие талона не требуется.
 };

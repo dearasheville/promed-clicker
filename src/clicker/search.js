@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import { toClick, toPaste, sleepUntilGetCorrectPixel, toSleep } from '../utils';
+import { toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
 
 const search = (surname, name, pathronymic, birth) => {
   // "Человек: поиск", фамилия
@@ -24,10 +24,9 @@ const search = (surname, name, pathronymic, birth) => {
   // "Человек: поиск", подтверждение заполнения формы
   robot.keyTap('enter');
 
-  // sleepUntilGetCorrectPixel(677, 820, 'fbf0d2');
+  sleepUntilGetCorrectPixel(440, 820, 'fbf0d2', 'ffcccc');
 
-  toSleep(1000);
-
+  robot.keyTap('enter');
   robot.keyTap('enter');
 };
 

@@ -1,9 +1,9 @@
+/* eslint-disable operator-assignment */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 
 import robot from 'robotjs';
-import clipboardy from 'clipboardy';
-import populate from 'xlsx-populate';
+import clipboardy, { readSync } from 'clipboardy';
 
 const toSleep = (ms) => {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
@@ -44,7 +44,7 @@ const toPaste = {
 
     toSleep(250);
 
-    robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 210);
+    robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
     robot.mouseClick();
   },
 };
@@ -79,24 +79,57 @@ const toCopy = {
   },
 };
 
-const sleepUntilGetCorrectPixel = (x, y, color, color2 = color) => {
-  while ((robot.getPixelColor(x, y) !== color) || (robot.getPixelColor(x, y) !== color2)) {
-    toSleep(500);
+const sleepUntilGetCorrectPixel = (x, y, firstColor, secondColor) => {
+  while (!(robot.getPixelColor(x, y) === firstColor || robot.getPixelColor(x, y) === secondColor)) {
+    toSleep(10);
   }
 };
 
-/**
-const saveToXlsx = (num, text) => {
-  populate.fromFileAsync('spreadsheet.xlsx').then((workbook) => {
-    workbook.sheet('My Sheet').cell(`H${num}`).value(text);
+const multipleTap = (func, arg, count) => {
+  let acc = count;
 
-    workbook.toFileAsync('spreadsheet.xlsx');
-  });
+  while (acc > 0) {
+    func(arg);
 
-  toSleep(5000);
+    acc = acc - 1;
+  }
 };
-*/
+
+const toPasteByKeyboard = (data) => {
+  clipboardy.writeSync(data);
+
+  robot.keyTap('f10', 'shift');
+
+  multipleTap(robot.keyTap, 'down', 2);
+
+  robot.keyTap('enter');
+};
+
+const toCopyByKeyboard = () => {
+  robot.keyTap('f10', 'shift');
+
+  robot.keyTap('enter');
+};
+
+const testCorrectData = (correctData) => {
+  robot.keyTap('tab');
+  robot.keyTap('tab', 'shift');
+
+  const toCopyByKeyboardTest = () => {
+    robot.keyTap('f10', 'shift');
+
+    robot.keyTap('down');
+
+    robot.keyTap('enter');
+  };
+
+  toCopyByKeyboardTest();
+
+  const initialData = clipboardy.readSync();
+
+  return initialData.includes(correctData);
+};
 
 export {
-  toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel,
+  toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel, multipleTap, toPasteByKeyboard, toCopyByKeyboard, testCorrectData,
 };
