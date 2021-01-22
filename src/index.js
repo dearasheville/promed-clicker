@@ -43,7 +43,7 @@ const getData = (array, first, second) => {
 spreadsheet.map((elem) => {
   const res = elem.map((el, index, array) => {
     if (String(el).slice(0, 2) === '87') {
-      return getData(elem, el, elem[array.indexOf(el) + 1]);
+      return el[6] !== '/' ? getData(elem, el, elem[array.indexOf(el) + 1]) : getData(elem, el.slice(0, 6), elem[array.indexOf(el.slice(0, 6)) + 1]);
     }
   });
 });

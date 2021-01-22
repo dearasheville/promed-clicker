@@ -6,14 +6,14 @@ import { toClick, toPaste, sleepUntilGetCorrectPixel, toSleep } from '../utils';
 
 const service = (medicalService) => {
   sleepUntilGetCorrectPixel(1562, 385, 'd7d8db');
-  sleepUntilGetCorrectPixel(1305, 803, 'ccffcc');
+  sleepUntilGetCorrectPixel(1305, 800, 'ccffcc');
   sleepUntilGetCorrectPixel(1226, 315, 'f0f0f0');
 
   if (robot.getPixelColor(1280, 455) === 'ccffcc') {
     return false;
   }
 
-  toClick.normal(1305, 803);
+  toClick.normal(1305, 800);
 
   toSleep(1000);
 
@@ -23,7 +23,20 @@ const service = (medicalService) => {
 
   robot.typeString(medicalService.slice(1));
 
-  sleepUntilGetCorrectPixel(1400, 850, 'fbf0d2');
+  switch (medicalService) {
+    case 'A05.23.009':
+      robot.moveMouse(1500, 450);
+      sleepUntilGetCorrectPixel(1400, 450, 'fbf0d2');
+      break;
+    case 'A06.23.004':
+      robot.moveMouse(1500, 570);
+      sleepUntilGetCorrectPixel(1500, 570, 'fbf0d2');
+      break;
+    default:
+      robot.moveMouse(1500, 870);
+      sleepUntilGetCorrectPixel(1500, 870, 'fbf0d2');
+      break;
+  }
 
   robot.keyTap('enter');
 

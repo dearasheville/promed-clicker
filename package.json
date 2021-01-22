@@ -1,15 +1,15 @@
 {
   "name": "promed-clicker",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "",
   "dependencies": {
     "windows-build-tools": "^5.2.2",
-    "python": "0.0.4",
     "node-gyp": "^7.1.0",
     "robotjs": "^0.6.0",
     "clipboardy": "^2.3.0",
-    "node-xlsx": "^0.15.0",
-    "xlsx-populate": "^1.21.0"
+    "node-key-sender": "^1.0.11",
+    "xlsx-populate": "^1.21.0",
+    "node-xlsx": "^0.15.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -5,7 +5,8 @@ import robot from 'robotjs';
 import { toClick, sleepUntilGetCorrectPixel, toSleep } from '../utils';
 
 const tnm = (surname, name, pathronymic) => {
-  sleepUntilGetCorrectPixel(719, 507, '36383c'); // Градиент!
+  // sleepUntilGetCorrectPixel(719, 507, '36383c'); // Градиент!
+  sleepUntilGetCorrectPixel(630, 520, 'eceef0');
 
   toClick.smooth(990, 635);
 
