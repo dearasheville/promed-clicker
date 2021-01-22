@@ -8,24 +8,25 @@ import { sleepUntilGetCorrectPixel, toSleep } from './utils';
 const getData = (array, first, second) => {
   const line = array;
 
-  const person = line[0].split(' ');
+  const person = line[1].split(' ');
 
   const surname = person[0];
   const name = person[1];
   const pathronymic = person[2];
 
-  const birth = String(line[2]);
+  const birth = String(line[16]);
 
   const diseaseCode = String(line[3]);
-  const department = line[4];
-  const clinician = line[5];
+
+  const department = ''; // Временно скрыто.
+  const clinician = ''; // Временно скрыто.
 
   const visitCode = String(first);
   const medicalService = String(`A${second.slice(1)}`);
 
-  const diagnost = String(line[8].split(' ').join(' '));
+  const diagnost = String(line[4].split(' ').join(' '));
 
-  const date = String(line[7]);
+  const date = String(line[17]);
 
   const isTheTicketFilledCorrect = () => {
     const ticketResultMessage = clicker(surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date);
@@ -40,10 +41,12 @@ const getData = (array, first, second) => {
   return isTheTicketFilledCorrect();
 };
 
-spreadsheet.map((elem) => {
-  const res = elem.map((el, index, array) => {
-    if (String(el).slice(0, 2) === '87') {
-      return el[6] !== '/' ? getData(elem, el, elem[array.indexOf(el) + 1]) : getData(elem, el.slice(0, 6), elem[array.indexOf(el.slice(0, 6)) + 1]);
+spreadsheet.map((spreadsheetRow) => {
+  const res = spreadsheetRow.map((spreadsheetCell, index, initialRow) => {
+    if (String(spreadsheetCell).slice(0, 2) === '87') {
+      return spreadsheetCell[6] !== '/' ?
+        getData(spreadsheetRow, spreadsheetCell, spreadsheetRow[initialRow.indexOf(spreadsheetCell) + 13]) :
+        getData(spreadsheetRow, spreadsheetCell.slice(0, 6), spreadsheetRow[initialRow.indexOf(spreadsheetCell) + 13]);
     }
   });
 });

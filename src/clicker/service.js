@@ -32,9 +32,13 @@ const service = (medicalService) => {
       robot.moveMouse(1500, 570);
       sleepUntilGetCorrectPixel(1500, 570, 'fbf0d2');
       break;
+    case 'A06.20.002':
+      robot.moveMouse(1500, 540);
+      sleepUntilGetCorrectPixel(1500, 540, 'fbf0d2');
+      break;
     default:
-      robot.moveMouse(1500, 870);
-      sleepUntilGetCorrectPixel(1500, 870, 'fbf0d2');
+      robot.moveMouse(1500, 860);
+      sleepUntilGetCorrectPixel(1500, 860, 'fbf0d2');
       break;
   }
 
