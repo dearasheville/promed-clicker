@@ -1,28 +1,30 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
+/* eslint-disable max-len */
 
-import robot from 'robotjs';
+import robot, { getPixelColor } from 'robotjs';
 import clipboardy from 'clipboardy';
 
 import {
-  toSleep, toClick, toPaste, sleepUntilGetCorrectPixel, toCopy, multipleTap, toPasteByKeyboard, toCopyByKeyboard, testCorrectData
+  sleepUntilGetCorrectPixel, toClick, toCopy, toPaste, multipleTap, changeNetworkSpeed,
 } from '../utils';
 
 const diagnosts = [
   [16009, 'Серов Оскар Валентинович'],
 
-  [16069, 'АЛТЫНОВА АЛИЯ ФЕЛИКСОВНА'], [51254, 'Ибрагимов Булат Айдарович'], [50146, 'РЯБОВА ВЕРОНИКА ЮРЬЕВНА'],
+  [16069, 'Алтынова Алия Феликсовна'], [51254, 'Ибрагимов Булат Айдарович'], [50146, 'Рябова Вероника Юрьевна'],
   [40000, 'Денисова Радмила Андреевна'],
 
-  [15023, 'БАЯЗИТОВА ЛИЛИЯ ИВАНОВНА'], [50405, 'ХУШМУРАДОВА ДИЛАРА ДУСМУРАДОВНА'],
+  [15023, 'Баязитова Лилия Ивановна'], [50405, 'Хушмурадова Дилара Дусмурадовна'],
   [20000, 'Сагитова Ирина Радиковна'], [30000, 'Бикметова Ильмира Ринатовна'], [10000, 'Мазитова Алина Фуатовна'],
   [50000, 'Новиков Денис Алексеевич'], [60000, 'Гареев Алик Маликович'],
-  [70000, 'Халимуллина Светлана Ириковна'],
+  [70000, 'Халимуллина Светлана Ириковна'], [80000, 'Иванова Влада Владимировна'], [100000, 'Мударисова Диана Раилевна'],
 
-  [15017, 'ЯЦЕНКО ТАТЬЯНА ГЕННАДЬЕВНА'], [15003, 'Фатхлисламова Гузэль Рифовна'], [15002, 'ХИСАМУТДИНОВА ГАЙША МАСГУТОВНА'],
-  [51566, 'ДИАНОВА АЛЬБИНА ФАНУРОВНА'],
+  [15017, 'Яценко Татьяна Геннадьевна'], [15003, 'Фатхлисламова Гузэль Рифовна'], [15002, 'Хисамутдинова Гайша Масгутовна'],
+  [51566, 'Дианова Альбина Фануровна'],
 ];
 
+/**
 const visitCodes = [
   [874730, 'КТ головы без контрастирования'],
   [874731, 'КТ грудного отдела без контрастирования'],
@@ -37,15 +39,6 @@ const visitCodes = [
   [874740, 'КТ сосудов без контрастирования'],
   [874741, 'КТ сустава без контрастирования'],
   [874742, 'КТ шеи без контрастирования '],
-  [874743, 'КТ сосудов с контрастированием'],
-  [874744, 'КТ головы с контрастированием'],
-  [874745, 'КТ конечностей с контрастированием ,'],
-  [874746, 'КТ мягких тканей с контрастированием'],
-  [874747, 'КТ органов брюш.пол. и забрюш.прост. с контраст'],
-  [874748, 'КТ органов грудной полости с контрастирования '],
-  [874749, 'КТ органов малого таза с контрастированием'],
-  [874750, 'КТ позвоночника с контрастированием'],
-  [874751, 'КТ шеи с контрастированием'],
   [874752, 'КТ головы с контраст.и ангиогр.инжек.'],
   [874753, 'КТ конечностей с контраст.и ангиогр.инжек. '],
   [874754, 'КТ орг.брюш.и забр.прос.с контраст.и ангиогр.инж.'],
@@ -54,26 +47,39 @@ const visitCodes = [
   [874757, 'КТ сосудов с контраст.и ангиогр.инжек.'],
   [874758, 'КТ шеи с контраст.и ангиогр.инжек.'],
 ];
+*/
 
 const hospital = () => {
-  toSleep(5000); // Должна быть проверка на цвет фона, чтобы определить какое окно выскачило: стационар или простая прогрузка.
-  // В противном случае снижение длительности сна ведет к тому, что проверка в любом случае проходит (на медленном 3G). 
+  /**
+  Должна быть проверка на цвет фона, чтобы определить какое окно выскачило: стационар или простая прогрузка.
+  В противном случае, снижение длительности сна ведет к тому, что проверка в любом случае проходит (на медленном 3G).
+  */
 
-  if (robot.getPixelColor(1308, 196) === 'd0d1d4') {
+  // toSleep(5000);
+  sleepUntilGetCorrectPixel(1308, 196, 'd0d1d4', '556677');
+
+  const isHospital = robot.getPixelColor(1308, 196) === 'd0d1d4';
+
+  // "Пересечение со случаем стационарного лечения", ситуационный попап
+  if (isHospital) {
     toCopy.test();
 
     const isOncology = clipboardy.readSync().indexOf('ГАУЗ РКОД МЗ РБ') !== -1;
 
     if (isOncology) {
+      // "Пересечение со случаем стационарного лечения", кнопка "нет"
       toClick.normal(1040, 620);
-      toSleep(2500);
-      toClick.normal(1860, 1050);
-      toSleep(2500);
+
+      // "Посещение пациентом поликлиники: Добавление", белый фон
+      sleepUntilGetCorrectPixel(1500, 500, 'ffffff');
+
+      // "Посещение пациентом поликлиники: Добавление", кнопка "отмена"
       toClick.normal(1860, 1050);
 
       return false;
     }
 
+    // "Пересечение со случаем стационарного лечения", кнопка "да"
     toClick.normal(940, 620);
   }
 
@@ -83,6 +89,8 @@ const hospital = () => {
 const visit = (diseaseCode, visitCode, diagnost, date) => {
   sleepUntilGetCorrectPixel(800, 300, 'ccffcc');
 
+  changeNetworkSpeed('toLow');
+
   // "Посещение пациентом поликлиники: Добавление", дата
   toClick.normal(380, 240);
   robot.typeString(date);
@@ -90,19 +98,22 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   multipleTap(robot.keyTap, 'tab', 4);
 
   // "Посещение пациентом поликлиники: Добавление", врач
-  const diagnostCode = diagnosts.find(elem => elem[1].split(' ').join(' ') === diagnost)[0];
+  const diagnostCode = String(diagnosts.find(elem => elem[1].split(' ').join(' ') === diagnost)[0]);
 
-  toSleep(250); // Одна из двух нестабильных форм: врач и код посещения.
+  // toSleep(250); // Нестабильная форма ("врач" и "код посещения")!
   robot.typeString(diagnostCode);
+  // toPasteByKeyboard(diagnostCode.slice(0, -1));
+  // robot.typeString(diagnostCode.substr(-1));
+  // toPasteByKeyboardJava(diagnostCode);
 
-  // sleepUntilGetCorrectPixel(1100, 330, 'fbf0d2');
   sleepUntilGetCorrectPixel(1100, 360, 'fbf0d2');
 
   robot.keyTap('enter');
 
   /**
-  if (!testCorrectData(diagnostCode)) { // Необходимо скорректировать проверку на достоверность ввода до проверки на желтизну.
-    robot.typeString(diagnostCode);
+  // Необходимо скорректировать проверку на достоверность ввода, до проверки на желтый цвет ховера
+  if (!testCorrectData(diagnostCode)) {
+    toPasteByKeyboardJava(diagnostCode);
 
     sleepUntilGetCorrectPixel(1100, 330, 'fbf0d2');
 
@@ -110,43 +121,39 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   }
   */
 
-  // "Посещение пациентом поликлиники: Добавление", вид обращения
-  sleepUntilGetCorrectPixel(321, 371, 'ccffcc'); // Установить проверки на доступные поля повсеместно?
+  // "Посещение пациентом поликлиники: Добавление", поле "вид обращения" доступно для заполнения
+  sleepUntilGetCorrectPixel(321, 371, 'ccffcc'); // Установить проверки на доступность полей повсеместно?
 
   multipleTap(robot.keyTap, 'tab', 2);
 
+  // "Посещение пациентом поликлиники: Добавление", вид обращения
   if (diseaseCode.slice(0, 1) === 'Z') {
     robot.keyTap(2);
-
-    // multipleTap(robot.keyTap, 'tab', 4); // ?
   } else {
     robot.keyTap(1);
-
-    // multipleTap(robot.keyTap, 'tab', 3); // ?
   }
 
-  multipleTap(robot.keyTap, 'tab', 3); // ?
+  multipleTap(robot.keyTap, 'tab', 3);
 
   // "Посещение пациентом поликлиники: Добавление", цель посещения
   if (diseaseCode.slice(0, 1) === 'Z') {
     robot.keyTap(2);
-
-    // multipleTap(robot.keyTap, 'tab', 2); // ?
   } else {
     robot.keyTap(1);
-
-    // multipleTap(robot.keyTap, 'tab', 3); // ?
   }
 
   multipleTap(robot.keyTap, 'tab', 3);
 
   // "Посещение пациентом поликлиники: Добавление", код посещения
-  // const visitName = visitCodes.find(elem => String(elem[0]) === visitCode)[1]; // Добавить для корректности проверки МРТ и РНД.
+  // const visitName = String(visitCodes.find(elem => String(elem[0]) === visitCode)[1]); // Добавить для корректности проверки МРТ и РНД.
 
   sleepUntilGetCorrectPixel(663, 561, 'ccffcc');
 
-  toSleep(250); // Одна из двух нестабильных форм: врач и код посещения.
+  // toSleep(250); // Нестабильная форма ("врач" и "код посещения")!
   robot.typeString(visitCode);
+  // toPasteByKeyboardJava(visitCode);
+  // toPasteByKeyboard(visitCode.slice(0, -1));
+  // robot.typeString(visitCode.substr(-1));
 
   sleepUntilGetCorrectPixel(319, 611, 'fbf0d2');
 
@@ -176,16 +183,17 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
       break;
   }
 
-  toPasteByKeyboard(diseaseCode.slice(0, 1));
-  robot.typeString(diseaseCode);
+  // toPasteByKeyboard(diseaseCode.slice(0, -1));
+  toPaste.upper(diseaseCode.slice(0, -1));
+  robot.typeString(diseaseCode.substr(-1));
 
   switch (gender) {
     case 'Мужской':
-      robot.moveMouseSmooth(1000, 925);
+      robot.moveMouse(1000, 925);
       sleepUntilGetCorrectPixel(295, 925, 'fbf0d2');
       break;
     case 'Женский':
-      robot.moveMouseSmooth(1000, 955);
+      robot.moveMouse(1000, 955);
       sleepUntilGetCorrectPixel(295, 955, 'fbf0d2');
       break;
     default:
@@ -195,18 +203,18 @@ const visit = (diseaseCode, visitCode, diagnost, date) => {
   robot.keyTap('tab');
 
   // "Посещение пациентом поликлиники: Добавление", характер
-  // sleepUntilGetCorrectPixel(1500, 500, 'e3e5e7'); // Перепроверить корректность обеих проверок.
+  sleepUntilGetCorrectPixel(1500, 500, 'e4e5e8');
   sleepUntilGetCorrectPixel(1500, 500, 'ffffff');
 
   robot.keyTap(3);
 
-  toSleep(1000); // Временная мера в целях ликвидации бага с отсутсвием клика по кнопке "подветрждения".
+  // "Посещение пациентом поликлиники: Добавление", кнопка "сохранить"
+  toClick.normal(110, 1050);
 
-  toClick.smooth(110, 1050); // Даже со smooth отрабатывает не всегда корректно.
+  // "Подождите, идет сохранение посещения", фон статус-бара
+  sleepUntilGetCorrectPixel(1500, 500, 'e4e5e8');
 
-  return hospital() === true;
+  return hospital();
 };
-
-// visit('D10.0', 874737, 'Ибрагимов Булат Айдарович', '31.08.2020');
 
 export default visit;

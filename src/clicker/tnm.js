@@ -1,36 +1,50 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
+/* eslint-disable max-len */
 
 import robot from 'robotjs';
-import { toClick, sleepUntilGetCorrectPixel, toSleep } from '../utils';
+
+import {
+  toSleep, sleepUntilGetCorrectPixel, toClick,
+} from '../utils';
 
 const tnm = (surname, name, pathronymic) => {
-  // sleepUntilGetCorrectPixel(719, 507, '36383c'); // Градиент!
+  // "Специфика: ошибка!"
   sleepUntilGetCorrectPixel(630, 520, 'eceef0');
 
-  toClick.smooth(990, 635);
+  // "Специфика", кнопка "окей"
+  toClick.normal(990, 635);
 
+  // "Специфика", белый фон карточки пациента
   sleepUntilGetCorrectPixel(872, 247, 'ffffff');
 
-  toClick.smooth(1865, 1050);
+  // "Специфика", кнопка "закрыть"
+  toClick.normal(1865, 1050);
 
-  sleepUntilGetCorrectPixel(878, 896, '4d5b6e');
+  sleepUntilGetCorrectPixel(1805, 192, '556677');
 
-  toClick.smooth(130, 1050);
+  // "Посещение пациентом поликлиники: Добавление", кнопка "сохранить"
+  toClick.normal(110, 1050);
 
-  toSleep(5000); // Вынужденная мера для стабилизации на низких скоростях, иначе нижняя проверка не успевает сработать. 
+  // "Посещение пациентом поликлиники: Добавление", фон статусбара
+  // sleepUntilGetCorrectPixel(1865, 195, '8f98a4');
 
-  if (robot.getPixelColor(719, 507) === '36383c') {
-    toClick.smooth(1350, 500);
+  // toSleep(5000); // Вынужденная мера для стабилизации на низких скоростях, иначе нижняя проверка не успевает сработать.
 
-    toSleep(2500);
+  // "Специфика: ошибка!" или "Человек: поиск"
+  sleepUntilGetCorrectPixel(630, 520, 'eceef0', 'ffffff');
 
-    toClick.normal(1860, 1050);
+  // "Специфика: ошибка!"
+  // if (robot.getPixelColor(719, 507) === '36383c') {
+  if (robot.getPixelColor(630, 520) === 'eceef0') {
+    toClick.normal(1350, 500);
 
-    console.log(surname, name, pathronymic);
+    console.log(`Незаполненная специфика: ${surname} ${name} ${pathronymic}`);
+
+    return false;
   }
-};
 
-// tnm();
+  return true;
+};
 
 export default tnm;

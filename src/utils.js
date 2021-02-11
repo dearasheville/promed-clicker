@@ -1,26 +1,34 @@
-/* eslint-disable operator-assignment */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
+/* eslint-disable max-len */
+/* eslint-disable operator-assignment */
 
 import robot from 'robotjs';
-import clipboardy, { readSync } from 'clipboardy';
+import clipboardy from 'clipboardy';
+import key from 'node-key-sender';
 
 const toSleep = (ms) => {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+};
+
+const sleepUntilGetCorrectPixel = (x, y, firstColor, secondColor) => {
+  while (!(robot.getPixelColor(x, y) === firstColor || robot.getPixelColor(x, y) === secondColor)) {
+    toSleep(250);
+  }
 };
 
 const toClick = {
   normal: (x, y) => {
     robot.moveMouse(x, y);
 
-    toSleep(250);
+    // toSleep(250);
 
     robot.mouseClick();
   },
   smooth: (x, y) => {
     robot.moveMouseSmooth(x, y);
 
-    toSleep(250);
+    // toSleep(250);
 
     robot.mouseClick();
   },
@@ -32,9 +40,11 @@ const toPaste = {
 
     robot.mouseClick('right');
 
-    toSleep(250);
+    robot.moveMouse(robot.getMousePos().x + 300, robot.getMousePos().y + 200);
 
-    robot.moveMouse(robot.getMousePos().x + 100, robot.getMousePos().y + 190);
+    // toSleep(250);
+    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
+
     robot.mouseClick();
   },
   upper: (data) => {
@@ -42,9 +52,12 @@ const toPaste = {
 
     robot.mouseClick('right');
 
-    toSleep(250);
+    // robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
+    robot.moveMouse(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
 
-    robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
+    // toSleep(250);
+    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
+
     robot.mouseClick();
   },
 };
@@ -53,9 +66,11 @@ const toCopy = {
   lower: () => {
     robot.mouseClick('right');
 
-    toSleep(250);
-
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
+
+    // toSleep(250);
+    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
+
     robot.mouseClick();
   },
   test: () => {
@@ -64,25 +79,23 @@ const toCopy = {
 
     robot.mouseClick('right');
 
-    toSleep(250);
+    robot.moveMouse(robot.getMousePos().x + 200, robot.getMousePos().y + 20);
 
-    robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
+    // toSleep(250);
+    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
+
     robot.mouseClick();
   },
   upper: () => {
     robot.mouseClick('right');
 
-    toSleep(250);
-
     robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y - 400);
+
+    // toSleep(250);
+    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
+
     robot.mouseClick();
   },
-};
-
-const sleepUntilGetCorrectPixel = (x, y, firstColor, secondColor) => {
-  while (!(robot.getPixelColor(x, y) === firstColor || robot.getPixelColor(x, y) === secondColor)) {
-    toSleep(10);
-  }
 };
 
 const multipleTap = (func, arg, count) => {
@@ -111,25 +124,53 @@ const toCopyByKeyboard = () => {
   robot.keyTap('enter');
 };
 
+/**
 const testCorrectData = (correctData) => {
   robot.keyTap('tab');
   robot.keyTap('tab', 'shift');
 
-  const toCopyByKeyboardTest = () => {
-    robot.keyTap('f10', 'shift');
-
-    robot.keyTap('down');
-
-    robot.keyTap('enter');
+  const copy = () => {
+    return key.sendCombination(['control', 'c']);
   };
 
-  toCopyByKeyboardTest();
+  copy();
 
-  const initialData = clipboardy.readSync();
+  return clipboardy.readSync().indexOf(correctData) !== -1;
+};
+*/
 
-  return initialData.includes(correctData);
+const changeNetworkSpeed = (speed) => {
+  toClick.normal(30, 225);
+
+  sleepUntilGetCorrectPixel(577, 77, 'efefef');
+  toClick.normal(577, 77);
+
+  switch (speed) {
+    case 'toHigh':
+      robot.moveMouse(589, 120);
+      sleepUntilGetCorrectPixel(589, 120, 'cecece');
+      break;
+    case 'toLow':
+      robot.moveMouse(589, 173);
+      sleepUntilGetCorrectPixel(589, 173, 'cecece');
+      break;
+    default:
+      break;
+  }
+
+  robot.keyTap('enter');
+
+  toClick.normal(30, 175);
 };
 
+/**
+const toPasteByKeyboardJava = (arg) => {
+  clipboardy.writeSync(String(arg));
+
+  return key.sendCombination(['control', 'v']);
+};
+*/
+
 export {
-  toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel, multipleTap, toPasteByKeyboard, toCopyByKeyboard, testCorrectData,
+  toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel, multipleTap, toCopyByKeyboard, toPasteByKeyboard, changeNetworkSpeed,
 };

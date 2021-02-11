@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
+/* eslint-disable max-len */
 
 import robot from 'robotjs';
-import { toSleep, toClick, toPaste } from '../utils';
+
+import {
+  toSleep, toClick, toPaste
+} from '../utils';
 
 const direction = (department, clinician, diseaseCode) => {
   // "Данные о направлении", кем направлен

@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
+/* eslint-disable max-len */
 
 import robot from 'robotjs';
-import { toClick, toPaste, sleepUntilGetCorrectPixel } from '../utils';
+
+import {
+  sleepUntilGetCorrectPixel, toClick, toPaste, 
+} from '../utils';
 
 const search = (surname, name, pathronymic, birth) => {
   // "Человек: поиск", фамилия
@@ -27,9 +31,7 @@ const search = (surname, name, pathronymic, birth) => {
   sleepUntilGetCorrectPixel(440, 820, 'fbf0d2', 'ffcccc');
 
   robot.keyTap('enter');
-  robot.keyTap('enter');
+  // robot.keyTap('enter');
 };
-
-// search('Каргина', 'Елена', 'Геннадьевна', '17.07.1973');
 
 export default search;
