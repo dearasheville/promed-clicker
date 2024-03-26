@@ -143,6 +143,9 @@ const diagnostFirst = (clinicianData, diagnostData) => {
   let pointY;
 
   switch (diagnosticType) {
+    case '802':
+      pointY = 938;
+      break;
     case '874':
       pointY = 810;
       break;
@@ -150,7 +153,7 @@ const diagnostFirst = (clinicianData, diagnostData) => {
       pointY = 778;
       break;
     case '876':
-      pointY = 842;
+      pointY = 882; // 842
       break;
     default:
       break;
@@ -207,7 +210,7 @@ const diagnostFirst = (clinicianData, diagnostData) => {
 
     mouse.click(990, 605);
 
-    if (!(message.includes('услуга'))) {
+    if (!(message.includes('ресурсом.'))) {
       toSleep(1000);
 
       // "Заявка на исследование: Назначенные услуги", "Инструментальная диагностика"

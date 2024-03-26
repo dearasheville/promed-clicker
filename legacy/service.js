@@ -7,6 +7,7 @@ import keyboard from '../input-devices/keyboard.js';
 import service1 from './services/service1.js';
 import service2 from './services/service2.js';
 import service3 from './services/service3.js';
+import service4 from './services/service4.js';
 
 import {
   toSleep, sleepUntilGetCorrectPixel,
@@ -46,6 +47,9 @@ const service = (diagnostData) => {
   }
 
   switch (medicalServiceCode) {
+    case 'A07.30.019':
+      service4(diagnostData);
+      break;
     case 'A05.01.002':
       service2(diagnostData);
       break;

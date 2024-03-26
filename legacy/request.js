@@ -47,7 +47,7 @@ const reuqest = (patientData, clinicianData, diagnostData) => {
   }
 
   // "АРМ Диагностики: Список заявок", белый фон блока
-  sleepUntilGetCorrectPixel([1800, 600], 'ffffff');
+  sleepUntilGetCorrectPixel([1800, 700], 'ffffff');
 
   // "АРМ Диагностики: Фильтр", дата рождения
   mouse.click(773, 215);
@@ -91,7 +91,7 @@ const reuqest = (patientData, clinicianData, diagnostData) => {
 
   // "АРМ Диагностики: Список заявок", фон загрузки
   // sleepUntilGetCorrectPixel([1800, 500], 'e3e5e7');
-  sleepUntilGetCorrectPixel([1800, 600], 'ffffff');
+  sleepUntilGetCorrectPixel([1800, 700], 'ffffff');
 
   toSleep(2500); // ??
 
