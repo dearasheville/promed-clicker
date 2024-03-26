@@ -4,4 +4,4 @@ build
 *.log
 *.gypi
 *.xlsx
-
+test.js
