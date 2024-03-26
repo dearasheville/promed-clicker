@@ -1,6 +1,6 @@
 {
-  "name": "promed-clicker",
-  "version": "0.2.0",
+  "name": "rtmis-clicker",
+  "version": "0.3.0",
   "main": "index.js",
   "type": "module",
   "dependencies": {
@@ -22,7 +22,11 @@
   },
   "scripts": {
     "babel-node": "babel-node",
-    "start": "babel-node src/index.js",
+    "paraclinic-clicker": "babel-node bin/paraclinic-clicker.js",
+    "policlinic-clicker": "babel-node bin/policlinic-clicker.js",
+    "paraclinic-remover": "babel-node bin/paraclinic-remover.js",
+    "policlinic-remover": "babel-node bin/policlinic-remover.js",
+    "test": "babel-node src/test.js",
     "lint": "npx eslint ."
   }
 }
