@@ -1,17 +1,12 @@
-/* eslint-disable linebreak-style */
-
 import {
   sleepUntilGetCorrectPixel,
-} from '../utils/sleep';
+} from '../utils/sleep.js';
 
-import mouse from '../input-devices/mouse';
-import keyboard from '../input-devices/keyboard';
+import mouse from '../input-devices/mouse.js';
+import keyboard from '../input-devices/keyboard.js';
 
 const search = (patientData) => {
-  const patientBirth = patientData[0];
-  const patientSurname = patientData[1];
-  const patientName = patientData[2];
-  const patientPathronymic = patientData[3];
+  const [patientBirth, patientSurname, patientName, patientPathronymic] = patientData;
 
   // "Человек: поиск", фамилия
   mouse.click(575, 385);

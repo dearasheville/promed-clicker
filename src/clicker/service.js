@@ -1,89 +1,109 @@
-/* eslint-disable linebreak-style */
-
 import robot from 'robotjs';
+import clipboardy from 'clipboardy';
 
-import mouse from '../input-devices/mouse';
-import keyboard from '../input-devices/keyboard';
+import mouse from '../input-devices/mouse.js';
+import keyboard from '../input-devices/keyboard.js';
+
+import service1 from './services/service1.js';
+import service2 from './services/service2.js';
+import service3 from './services/service3.js';
 
 import {
-  sleepUntilGetCorrectPixel, toSleep,
-} from '../utils/sleep';
-
-import errorPopupControl from '../utils/popup';
+  toSleep, sleepUntilGetCorrectPixel,
+} from '../utils/sleep.js';
 
 const service = (diagnostData) => {
+  const researchDate = diagnostData[0];
+  const diagnostCode = diagnostData[1];
+  const medicalVisitCode = diagnostData[2];
   const medicalServiceCode = diagnostData[3];
+  const medicalDenominationCode = diagnostData[4];
 
-  // "Данные о направлении", фон при прогрузке интерфейса
-  sleepUntilGetCorrectPixel([1562, 385], 'd7d8db');
+  // "Результат выполнения услуги: Основные данные", серый блок
+  sleepUntilGetCorrectPixel([1500, 287], 'e3e5e7');
+  sleepUntilGetCorrectPixel([1500, 287], 'ffffff');
 
-  // "Выполнение общей услуги: Добавление", фон блока
-  sleepUntilGetCorrectPixel([1226, 315], 'f0f0f0');
+  toSleep(5000);
 
-  // "Выполнение общей услуги: Добавление", поле "услуга" доступно для ввода
-  sleepUntilGetCorrectPixel([1305, 800], 'ccffcc');
+  mouse.click(1775, 180);
+  keyboard.tap('pageup');
+  keyboard.tap('pageup');
 
-  // "Выполнение общей услуги: Добавление", поле "место выполнения" доступно для ввода
-  const visitWasNotComplete = robot.getPixelColor(1280, 455) === 'ccffcc';
+  if (medicalDenominationCode !== '') {
+    mouse.click(280, 260);
+    keyboard.tap('delete');
 
-  if (visitWasNotComplete) {
-    // "Выполнение общей услуги: Добавление", кнопка "отмена"
-    mouse.click(1411, 283);
+    mouse.click(1000, 310);
 
-    sleepUntilGetCorrectPixel([315, 337], 'ccffcc');
+    sleepUntilGetCorrectPixel([280, 260], 'ccffcc');
+    toSleep(1000); // ??
 
-    mouse.click(1860, 1050);
-
-    // "Талон амбулаторного пациента: Добавление", выделенное желтым посещение
-    sleepUntilGetCorrectPixel([75, 660], 'fbf0d2');
-
-    mouse.click(1860, 1050);
-
-    return [false, null];
+    mouse.click(235, 260);
+    keyboard.type(medicalDenominationCode);
+    mouse.move(235, 276);
+    sleepUntilGetCorrectPixel([235, 276], 'fbf0d2');
+    keyboard.tap('enter');
   }
 
-  // "Выполнение общей услуги: Добавление", заполнение поля "услуга"
-  mouse.click(1305, 800);
-
-  toSleep(2500); // ?
-
-  mouse.paste(medicalServiceCode.slice(0, -1), 'upper');
-  keyboard.type(medicalServiceCode.substr(-1));
-
-  // "Выполнение общей услуги: Добавление", желтый ховер при наведении мыши на услугу
   switch (medicalServiceCode) {
-    // Наименование: "Магнитно-резонансная томография головного мозга"
-    case 'A05.23.009':
-      mouse.move(1500, 450);
-      sleepUntilGetCorrectPixel([1400, 450], 'fbf0d2');
+    case 'A05.01.002':
+      service2(diagnostData);
       break;
-    // Наименование: "Компьютерная томография головного мозга"
-    case 'A06.23.004':
-      mouse.move(1500, 570);
-      sleepUntilGetCorrectPixel([1500, 570], 'fbf0d2');
+    case 'A06.09.005':
+      service2(diagnostData);
       break;
-    // Наименование: "Компьютерная томография органов малого таза у женщин"
+    case 'A06.03.021.001':
+      service2(diagnostData);
+      break;
+    case 'A06.03.036.001':
+      service2(diagnostData);
+      break;
     case 'A06.20.002':
-      mouse.move(1500, 540);
-      sleepUntilGetCorrectPixel([1500, 540], 'fbf0d2');
+      service2(diagnostData);
+      break;
+    case 'A06.03.002':
+      service2(diagnostData);
+      break;
+    case 'A06.01.001':
+      service3(diagnostData);
+      break;
+    case 'A06.30.005.002':
+      service3(diagnostData);
       break;
     default:
-      mouse.move(1500, 860);
-      sleepUntilGetCorrectPixel([1500, 860], 'fbf0d2');
+      service1(diagnostData);
       break;
   }
 
-  keyboard.tap('enter');
+  // "Заявка на исследование: Назначенные услуги", кнопка "Сохранить"
+  mouse.click(85, 1055);
 
-  // "Выполнение общей услуги: Добавление", кнопка "сохранить"
-  mouse.click(640, 920);
+  // "Заявка на исследование: Назначенные услуги", "Сохранение...": фон серого цвета
+  // sleepUntilGetCorrectPixel([1780, 285], 'e3e5e7', 'd6d8da', 'dfe8f6'); // test
 
-  sleepUntilGetCorrectPixel([1300, 305], 'dcdde0', 'dddee1');
-  sleepUntilGetCorrectPixel([1300, 305], 'd0d1d4', 'ffffff');
+  sleepUntilGetCorrectPixel([1780, 285], 'e3e5e7');
+  sleepUntilGetCorrectPixel([1780, 285], 'd6d8da', 'dfe8f6');
 
-  return errorPopupControl('medicalService', [1300, 305], 'd0d1d4');
+  if (robot.getPixelColor(1780, 285) === 'd6d8da') {
+    robot.moveMouse(910, 555);
+
+    const test = mouse.copy('test');
+
+    if (test.includes('АКиНЕО')) {
+      mouse.click(950, 600);
+    } else {
+      mouse.click(992, 600);
+
+      // "Результат выполнения услуги: Основные данные", "Врач"
+      mouse.click(235, 434);
+      toSleep(1000); // ??
+      keyboard.type(diagnostCode);
+      sleepUntilGetCorrectPixel([238, 453], 'fbf0d2');
+      keyboard.tap('enter');
+
+      mouse.click(85, 1055);
+    }
+  }
 };
 
 export default service;
-
-// service([0, 1, 2, 'A06.09.005']);

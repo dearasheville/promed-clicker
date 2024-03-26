@@ -1,12 +1,9 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable import/no-cycle */
-
 import robot from 'robotjs';
 import clipboardy from 'clipboardy';
 
 import {
   sleepUntilGetCorrectPixel, toSleep,
-} from '../utils/sleep';
+} from '../utils/sleep.js';
 
 const mouse = {
   move: (x, y, style = 'standart') => {
@@ -42,7 +39,7 @@ const mouse = {
         robot.mouseClick('right');
 
         robot.moveMouseSmooth(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;
@@ -50,19 +47,18 @@ const mouse = {
         robot.mouseClick('right');
 
         robot.moveMouseSmooth(robot.getMousePos().x + 70, robot.getMousePos().y - 445);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;
       case 'test':
-        robot.moveMouse(910, 555);
         robot.mouseClick('left', true);
         robot.mouseClick('left', true);
 
         robot.mouseClick('right');
 
-        robot.moveMouseSmooth(robot.getMousePos().x + 200, robot.getMousePos().y + 20);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        robot.moveMouse(robot.getMousePos().x + 200, robot.getMousePos().y + 20);
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;
@@ -70,14 +66,14 @@ const mouse = {
         robot.mouseClick('left', true);
         robot.mouseClick('left', true);
 
-        toSleep(500); // ?? 
+        toSleep(500); // ??
 
         robot.mouseClick('right');
 
-        toSleep(500); // ?? 
+        toSleep(500); // ??
 
         robot.moveMouse(robot.getMousePos().x + 200, robot.getMousePos().y + 85);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;
@@ -94,8 +90,8 @@ const mouse = {
 
         robot.mouseClick('right');
 
-        robot.moveMouse(robot.getMousePos().x + 325, robot.getMousePos().y + 180);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        robot.moveMouse(robot.getMousePos().x + 300, robot.getMousePos().y + 190);
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;
@@ -105,7 +101,7 @@ const mouse = {
         robot.mouseClick('right');
 
         robot.moveMouse(robot.getMousePos().x + 10, robot.getMousePos().y - 300);
-        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'eeeeee');
+        sleepUntilGetCorrectPixel([robot.getMousePos().x, robot.getMousePos().y], 'd3dfe9');
 
         robot.mouseClick();
         break;

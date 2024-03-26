@@ -1,6 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable operator-assignment */
-
 import robot from 'robotjs';
 import clipboardy from 'clipboardy';
 
@@ -11,10 +8,10 @@ const keyboard = {
     while (acc > 0) {
       robot.keyTap(key);
 
-      acc = acc - 1;
+      acc -= 1;
     }
   },
-  type: (text = '', delay) => {
+  type: (text, delay) => {
     if (delay !== undefined) {
       robot.setKeyboardDelay(delay);
     }

@@ -1,31 +1,28 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable linebreak-style */
-
-import departments from '../data-lists/departments';
-import diagnosts from '../data-lists/diagnosts';
-import services from '../data-lists/services';
+import departments from '../data-lists/departments.js';
+import diagnosts from '../data-lists/diagnosts.js';
+import services from '../data-lists/services.js';
 
 // const reverse = array => [array[1], array[0]];
 
-const getClinicianDepartmentCode = clinicianDepartment => departments.find((listElem) => {
+const getClinicianDepartmentCode = (clinicianDepartment) => departments.find((listElem) => {
   const listDepartment = listElem[1];
 
   return listDepartment.toLowerCase() === clinicianDepartment.toLowerCase();
 }) || [];
 
-const getDiagnostCode = diagnostName => diagnosts.find((listElem) => {
+const getDiagnostCode = (diagnostName) => diagnosts.find((listElem) => {
   const listDiagnostName = listElem[1].split(' ').join(' ');
 
   return listDiagnostName.toLowerCase() === diagnostName.toLowerCase();
 }) || [];
 
-const getMedicalServiceCode = visitCell => services.find((listElem) => {
+const getMedicalServiceCode = (visitCell) => services.find((listElem) => {
   const listVisitCode = listElem[0];
 
   return listVisitCode.toLowerCase() === visitCell.toLowerCase();
 }) || [];
 
-const getMedicalDenominationCode = visitCell => services.find((listElem) => {
+const getMedicalDenominationCode = (visitCell) => services.find((listElem) => {
   const listVisitCode = listElem[0];
 
   return listVisitCode.toLowerCase() === visitCell.toLowerCase();
@@ -58,9 +55,6 @@ const findCorrespondingCodeInList = (text, list) => {
   }
 
   return correspondingCode;
-
-  // const correspondingCode = arrayOfCodeAndText[0];
-  // return correspondingCode === undefined ? null : correspondingCode;
 };
 
 export default findCorrespondingCodeInList;

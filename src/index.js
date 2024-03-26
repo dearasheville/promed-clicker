@@ -1,18 +1,8 @@
-/* eslint-disable linebreak-style */
+import visitList from './bin/spreadsheet.js';
 
-import {
-  medicalTicketSpreadsheet,
-} from './bin/medicalSpreadsheet';
+import search from './utils/search.js';
 
-import clicker from './bin/medicalClicker';
-
-import search from './utils/search';
-
-import {
-  isRefillRequired,
-} from './utils';
-
-import diagnost from './test/diagnost'; // test
+import request from './clicker/request.js';
 
 const getDataAboutPatient = (line) => {
   const dataLine = line.map(String);
@@ -37,7 +27,6 @@ const getDataAboutClinician = (line) => {
 
   const clinicianDepartment = clinicianData[0];
   const clinicianDepartmentCode = clinicianDepartment;
-  // const clinicianDepartmentCode = search(clinicianDepartment, 'departmentCode'); // ?
   const clinicianName = clinicianData[1];
 
   const diseaseCode = dataLine[5];
@@ -62,10 +51,14 @@ const getDataAboutDiagnost = (line, visitCell) => {
 
   const diseaseCode = dataLine[5];
 
+  if (researchDate === '' || diagnostName === '' || medicalVisitCode === '') {
+    return false;
+  }
+
   return [researchDate, diagnostCode || diagnostName, medicalVisitCode, medicalServiceCode, medicalDenominationCode, diseaseCode];
 };
 
-medicalTicketSpreadsheet.forEach((spreadsheetRow) => {
+visitList.forEach((spreadsheetRow) => {
   const directionNumber = spreadsheetRow[0];
 
   if (directionNumber === undefined) {
@@ -82,31 +75,18 @@ medicalTicketSpreadsheet.forEach((spreadsheetRow) => {
   const medicalVisitCodesArray = spreadsheetRow.slice(8, 16).map(String);
 
   medicalVisitCodesArray.forEach((spreadsheetCell, index) => {
-    const isMedicalVisitCode = spreadsheetCell.slice(0, 2);
+    const isMedicalVisitCode = spreadsheetCell.slice(0, 2) === '87';
 
-    if (isMedicalVisitCode !== '87') {
+    if (!isMedicalVisitCode) {
       return false;
     }
 
     const diagnostData = getDataAboutDiagnost(spreadsheetRow, medicalVisitCodesArray[index]);
 
-    const toFillTheTicket = () => {
-      const ticketResult = diagnost(patientData, clinicianData, diagnostData);
-      const ticketResultBoolean = true;
+    if (!diagnostData) {
+      return false;
+    }
 
-      /**
-      const ticketResult = isRefillRequired(clicker(patientData, clinicianData, diagnostData));
-      const ticketResultBoolean = ticketResult[0];
-      const ticketResultMessage = ticketResult[1];
-
-      if (ticketResultMessage !== null) {
-        console.log(`${directionNumber}: ${ticketResultMessage}`); // Дополнить логирование через консоль записью строки в файл?
-      }
-      */
-
-      return ticketResultBoolean ? true : toFillTheTicket();
-    };
-
-    return toFillTheTicket();
+    return request(patientData, clinicianData, diagnostData);
   });
 });
