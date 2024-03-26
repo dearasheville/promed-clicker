@@ -1,13 +1,15 @@
-import matchRequiredAndPointColors from './colors.js';
+import doPointColorAndListColorMatch from './colors-match.js';
 
-const toSleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+const sleepForMs = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 
-const sleepUntilGetCorrectPixel = (point, ...colors) => {
-  while (!matchRequiredAndPointColors(point, ...colors)) {
-    toSleep(10);
+const sleepUntilPointColorMatchesList = (point, ...colors) => {
+  const doTheColorsMatch = doPointColorAndListColorMatch(point, ...colors);
+
+  while (!doTheColorsMatch) {
+    sleepForMs(10);
   }
 };
 
 export {
-  toSleep, sleepUntilGetCorrectPixel,
+  sleepForMs, sleepUntilPointColorMatchesList,
 };
