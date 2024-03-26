@@ -1,25 +1,26 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-
-import robot from 'robotjs';
 
 import {
-  sleepUntilGetCorrectPixel, toClick, multipleTap,
-} from '../utils';
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
+
+import mouse from '../input-devices/mouse';
+import keyboard from '../input-devices/keyboard';
 
 const result = () => {
   // "Результат: случай закончен"
-  toClick.normal(395, 950);
-  robot.keyTap('1');
+  mouse.click(395, 950);
+  keyboard.tap('1');
 
-  multipleTap(robot.keyTap, 'tab', 2);
+  keyboard.tap('tab', 2);
 
   // "Результат: результат лечения", поле доступно для ввода
-  sleepUntilGetCorrectPixel(360, 1016, 'ccffcc');
+  sleepUntilGetCorrectPixel([360, 1016], 'ccffcc');
 
   // "Результат: результат лечения"
-  robot.keyTap('3');
+  keyboard.tap('3');
 };
+
+// result();
 
 export default result;

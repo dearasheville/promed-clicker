@@ -1,105 +1,96 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
 
 import robot from 'robotjs';
 
 import search from '../clicker/search';
-// import direction from '../clicker/direction';
+import direction from '../clicker/direction';
 import surveillance from '../clicker/surveillance';
 import visit from '../clicker/visit';
 import service from '../clicker/service';
 import result from '../clicker/result';
-import tnm from '../clicker/tnm';
+
+import mouse from '../input-devices/mouse';
 
 import {
-  toClick, sleepUntilGetCorrectPixel, changeNetworkSpeed,
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
+
+import {
+  changeNetworkSpeed,
 } from '../utils';
+
+import errorPopupControl from '../utils/popup';
 
 robot.setMouseDelay(100); // 100\250
 robot.setKeyboardDelay(100); // 100\250
 
-const clicker = (surname, name, pathronymic, birth, department, clinician, diseaseCode, visitCode, medicalService, diagnost, date) => {
-  search(surname, name, pathronymic, birth);
+const clicker = (patientData, clinicianData, diagnostData) => {
+  // "Человек: поиск", фон
+  sleepUntilGetCorrectPixel([1865, 195], 'd7d8db');
 
-  sleepUntilGetCorrectPixel(80, 660, 'fbf0d2');
+  search(patientData);
 
-  // direction(department, clinician, diseaseCode);
+  sleepUntilGetCorrectPixel([80, 660], 'fbf0d2');
+
+  const directionResult = direction(clinicianData);
+  const directionResultBoolean = directionResult[0];
+
+  if (!directionResultBoolean) {
+    return directionResult;
+  }
 
   // "Посещения: Добавить"
-  robot.keyTap('insert');
+  mouse.click(117, 608);
 
   surveillance();
 
   // "Талон амбулаторного пациента: Добавление", белый фон
-  sleepUntilGetCorrectPixel(225, 495, 'ffffff');
+  sleepUntilGetCorrectPixel([225, 495], 'ffffff');
 
-  // "Посещение пациентом поликлиники: Добавление", стационар
-  if (!visit(diseaseCode, visitCode, diagnost, date)) {
-    console.log(`Стационарный случай: ${surname} ${name} ${pathronymic}`);
+  // "Посещение пациентом поликлиники: Добавление"
+  const medicalVisitResult = visit(diagnostData);
+  const medicalVisitResultBoolean = medicalVisitResult[0];
 
-    // "Талон амбулаторного пациента: Добавление", выделенное желтым посещение
-    sleepUntilGetCorrectPixel(75, 660, 'fbf0d2');
-
+  if (!medicalVisitResultBoolean) {
     changeNetworkSpeed('toHigh');
 
-    // "Талон амбулаторного пациента: Добавление", кнопка "отмена"
-    toClick.normal(1860, 1050);
-
-    // "Талон амбулаторного пациента: Добавление", талон заполнен корректно
-    return true;
+    return medicalVisitResult;
   }
 
   // "Талон амбулаторного пациента: Добавление", выделенное желтым посещение
-  sleepUntilGetCorrectPixel(75, 660, 'fbf0d2');
+  sleepUntilGetCorrectPixel([75, 660], 'fbf0d2');
 
   changeNetworkSpeed('toHigh');
 
   // "Талон амбулаторного пациента: Добавление", выделенная белым услуга
-  sleepUntilGetCorrectPixel(75, 825, 'ffffff');
+  sleepUntilGetCorrectPixel([75, 825], 'ffffff');
 
   // "Талон амбулаторного пациента: Добавление", "Услуги: добавить"
-  toClick.normal(110, 755);
+  mouse.click(110, 755);
+
   // "Талон амбулаторного пациента: Добавление", "Добавить общую услугу"
-  toClick.normal(148, 785);
+  mouse.click(148, 785);
 
   // "Выполнение общей услуги: Добавление", незаполненное посещение
-  if (!service(medicalService)) {
-    // "Выполнение общей услуги: Добавление", кнопка "отмена"
-    toClick.normal(1354, 925);
+  const medicalServiceResult = service(diagnostData);
+  const medicalServiceResultBoolean = medicalServiceResult[0];
 
-    // "Талон амбулаторного пациента: Добавление", выделенное желтым посещение
-    sleepUntilGetCorrectPixel(75, 660, 'fbf0d2'); // Сменить на другую проверку?
-
-    // "Талон амбулаторного пациента: Добавление", кнопка "отмена"
-    toClick.normal(1860, 1050);
-
-    // "Талон амбулаторного пациента: Добавление", талон заполнен некорректно
-    return false;
+  if (!medicalServiceResultBoolean) {
+    return medicalServiceResult;
   }
 
   // "Талон амбулаторного пациента: Добавление", выделенный белым результат
-  sleepUntilGetCorrectPixel(93, 974, 'ffffff');
+  sleepUntilGetCorrectPixel([93, 974], 'ffffff');
 
   result();
 
   // "Талон амбулаторного пациента: Добавление", кнопка "сохранить"
-  toClick.normal(130, 1050);
-
-  if (diseaseCode.slice(0, 1) === 'C' || diseaseCode.slice(0, 2) === 'D0') {
-    if (!tnm(surname, name, pathronymic)) {
-      sleepUntilGetCorrectPixel(1805, 192, '556677');
-
-      // "Талон амбулаторного пациента: Добавление", кнопка "отмена"
-      toClick.normal(1860, 1050);
-    }
-
-    // "Талон амбулаторного пациента: Добавление", талон заполнен корректно
-    return true;
-  }
+  mouse.click(130, 1050);
 
   // "Талон амбулаторного пациента: Добавление", талон заполнен корректно
-  return true;
+  sleepUntilGetCorrectPixel([1300, 200], '8a939e', '8a939d', 'd7d8db');
+
+  return errorPopupControl('medicalTicket', [1300, 200], '8a939e', '8a939d');
 };
 
 export default clicker;

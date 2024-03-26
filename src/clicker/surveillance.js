@@ -1,17 +1,17 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
 
 import {
-  sleepUntilGetCorrectPixel, toClick,
-} from '../utils';
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
+
+import mouse from '../input-devices/mouse';
 
 const surveillance = () => {
   // "Наблюдение за пациентом: Добавление", поле "ЧДД в мин" доступно для ввода
-  sleepUntilGetCorrectPixel(800, 507, 'ccffcc');
+  sleepUntilGetCorrectPixel([800, 507], 'ccffcc');
 
-  // "Наблюдение за пациентом: Добавление", кнопка "отмена"
-  toClick.normal(1405, 1010);
+  // "Наблюдение за пациентом: Добавление", крестик
+  mouse.click(1473, 189);
 };
 
 export default surveillance;

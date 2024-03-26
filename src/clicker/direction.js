@@ -1,53 +1,74 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-
-import robot from 'robotjs';
 
 import {
-  toSleep, toClick, toPaste
-} from '../utils';
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
 
-const direction = (department, clinician, diseaseCode) => {
+import mouse from '../input-devices/mouse';
+import keyboard from '../input-devices/keyboard';
+import keyboardVirtual from '../input-devices/keyboard-virtual';
+
+const direction = (clinicianData) => {
+  const directionNumber = clinicianData[0];
+  const directionDate = clinicianData[1];
+
+  const clinicianDepartment = clinicianData[2];
+  const clinicianName = clinicianData[3];
+
+  const diseaseCode = clinicianData[4];
+
+  if (clinicianDepartment === '' || clinicianName === '' || diseaseCode === '') {
+    // "Талон амбулаторного пациента: Добавление", кнопка "отмена"
+    mouse.click(1860, 1050);
+
+    return [false, 'не заполнены данные отделения, врача-клинициста или диагноза;'];
+  }
+
   // "Данные о направлении", кем направлен
-  toClick.normal(365, 335);
-  robot.keyTap('1');
-  toClick.normal(290, 400);
+  mouse.click(675, 335);
+  keyboard.tap(1);
 
-  toSleep(5000);
+  mouse.click(1003, 337);
+  sleepUntilGetCorrectPixel([914, 400], 'ccffcc');
 
-  /**
   // "Данные о направлении", отделение
-  toClick.normal(365, 400);
+  mouse.click(935, 400);
+  keyboardVirtual.type(clinicianDepartment.slice(0, clinicianDepartment.length - 1));
+  mouse.move(357, 430);
+  sleepUntilGetCorrectPixel([357, 430], 'fbf0d2');
 
-  robot.typeString('10');
-  robot.keyTap('backspace');
-  robot.keyTap('backspace');
-  robot.typeString('1');
-
-  toSleep(2500);
-
-  toClick.normal(365, 610);
-
-  toSleep(2500);
-  */
+  keyboard.tap('tab');
 
   // "Данные о направлении", врач
-  toClick.normal(935, 435);
-  toPaste.lower(clinician.split(' ')[0]);
+  mouse.click(935, 435);
+  keyboardVirtual.type(clinicianName);
+  mouse.move(357, 465);
+  sleepUntilGetCorrectPixel([357, 465], 'fbf0d2');
 
-  toSleep(5000);
+  keyboard.tap('tab');
 
-  toClick.normal(robot.getMousePos().x, robot.getMousePos().y + 10);
+  // "Данные о направлении", номер направления
+  keyboardVirtual.type(directionNumber);
 
-  toSleep(2500);
+  keyboard.tap('tab');
 
-  // "Данные о направлении", диагноз
-  toClick.normal(365, 500);
+  // "Данные о направлении", дата направления
+  keyboardVirtual.type(directionDate);
 
-  toSleep(2500);
+  keyboard.tap('tab');
 
-  toPaste.lower(diseaseCode);
+  // "Данные о направлении", диагноз направляющего учреждения
+  mouse.click(480, 500);
+  mouse.paste(diseaseCode.slice(0, -1));
+  keyboard.type(diseaseCode.substr(-1));
+  mouse.move(356, 532);
+  sleepUntilGetCorrectPixel([356, 532], 'fbf0d2');
+
+  keyboard.tap('tab');
+
+  return [true, null];
 };
+
+// direction('1543409', 'ОНКО-ПРОКТОЛОГ', 'Каланова АЛЛА ПАВЛОВНА', 'D12.2', '30.04.2021');
 
 export default direction;

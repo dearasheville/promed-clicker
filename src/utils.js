@@ -1,176 +1,76 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
+﻿/* eslint-disable linebreak-style */
 /* eslint-disable max-len */
-/* eslint-disable operator-assignment */
+/* eslint-disable import/no-cycle */
 
 import robot from 'robotjs';
-import clipboardy from 'clipboardy';
-import key from 'node-key-sender';
 
-const toSleep = (ms) => {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
+import mouse from './input-devices/mouse';
+import keyboard from './input-devices/keyboard';
+import keyboardVirtual from './input-devices/keyboard-virtual';
+
+
+import {
+  sleepUntilGetCorrectPixel,
+} from './utils/sleep';
+
+const matchRequiredAndPointColors = (point, ...colors) => {
+  const x = point[0];
+  const y = point[1];
+
+  const pointColor = robot.getPixelColor(x, y);
+  const colorMatch = colors.find(color => color === pointColor);
+
+  return colorMatch !== undefined;
 };
-
-const sleepUntilGetCorrectPixel = (x, y, firstColor, secondColor) => {
-  while (!(robot.getPixelColor(x, y) === firstColor || robot.getPixelColor(x, y) === secondColor)) {
-    toSleep(250);
-  }
-};
-
-const toClick = {
-  normal: (x, y) => {
-    robot.moveMouse(x, y);
-
-    // toSleep(250);
-
-    robot.mouseClick();
-  },
-  smooth: (x, y) => {
-    robot.moveMouseSmooth(x, y);
-
-    // toSleep(250);
-
-    robot.mouseClick();
-  },
-};
-
-const toPaste = {
-  lower: (data) => {
-    clipboardy.writeSync(data);
-
-    robot.mouseClick('right');
-
-    robot.moveMouse(robot.getMousePos().x + 300, robot.getMousePos().y + 200);
-
-    // toSleep(250);
-    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
-
-    robot.mouseClick();
-  },
-  upper: (data) => {
-    clipboardy.writeSync(data);
-
-    robot.mouseClick('right');
-
-    // robot.moveMouseSmooth(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
-    robot.moveMouse(robot.getMousePos().x + 60, robot.getMousePos().y - 260);
-
-    // toSleep(250);
-    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
-
-    robot.mouseClick();
-  },
-};
-
-const toCopy = {
-  lower: () => {
-    robot.mouseClick('right');
-
-    robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y + 20);
-
-    // toSleep(250);
-    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
-
-    robot.mouseClick();
-  },
-  test: () => {
-    toClick.normal(729, 545);
-    robot.mouseClick('left', true);
-
-    robot.mouseClick('right');
-
-    robot.moveMouse(robot.getMousePos().x + 200, robot.getMousePos().y + 20);
-
-    // toSleep(250);
-    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
-
-    robot.mouseClick();
-  },
-  upper: () => {
-    robot.mouseClick('right');
-
-    robot.moveMouse(robot.getMousePos().x + 70, robot.getMousePos().y - 400);
-
-    // toSleep(250);
-    sleepUntilGetCorrectPixel(robot.getMousePos().x, robot.getMousePos().y, 'eeeeee');
-
-    robot.mouseClick();
-  },
-};
-
-const multipleTap = (func, arg, count) => {
-  let acc = count;
-
-  while (acc > 0) {
-    func(arg);
-
-    acc = acc - 1;
-  }
-};
-
-const toPasteByKeyboard = (data) => {
-  clipboardy.writeSync(data);
-
-  robot.keyTap('f10', 'shift');
-
-  multipleTap(robot.keyTap, 'down', 2);
-
-  robot.keyTap('enter');
-};
-
-const toCopyByKeyboard = () => {
-  robot.keyTap('f10', 'shift');
-
-  robot.keyTap('enter');
-};
-
-/**
-const testCorrectData = (correctData) => {
-  robot.keyTap('tab');
-  robot.keyTap('tab', 'shift');
-
-  const copy = () => {
-    return key.sendCombination(['control', 'c']);
-  };
-
-  copy();
-
-  return clipboardy.readSync().indexOf(correctData) !== -1;
-};
-*/
 
 const changeNetworkSpeed = (speed) => {
-  toClick.normal(30, 225);
+  // mouse.click(30, 200);
+  robot.keyToggle('control', 'down', 'shift');
+  keyboardVirtual.type('ш');
+  robot.keyToggle('control', 'up', 'shift');
 
-  sleepUntilGetCorrectPixel(577, 77, 'efefef');
-  toClick.normal(577, 77);
+  sleepUntilGetCorrectPixel([450, 62], 'efefef');
+  mouse.click(450, 62);
 
   switch (speed) {
     case 'toHigh':
-      robot.moveMouse(589, 120);
-      sleepUntilGetCorrectPixel(589, 120, 'cecece');
+      mouse.move(450, 115);
+      sleepUntilGetCorrectPixel([450, 115], '767676');
+      break;
+    case 'toMedium':
+      mouse.move(450, 150);
+      sleepUntilGetCorrectPixel([450, 150], '767676');
       break;
     case 'toLow':
-      robot.moveMouse(589, 173);
-      sleepUntilGetCorrectPixel(589, 173, 'cecece');
+      mouse.move(450, 165);
+      sleepUntilGetCorrectPixel([450, 165], '767676');
       break;
     default:
       break;
   }
 
-  robot.keyTap('enter');
+  keyboard.tap('enter');
 
-  toClick.normal(30, 175);
+  mouse.click(30, 155);
 };
 
-/**
-const toPasteByKeyboardJava = (arg) => {
-  clipboardy.writeSync(String(arg));
+const isRefillRequired = (result) => {
+  const resultBoolean = result[0];
+  const resultMessage = result[1];
 
-  return key.sendCombination(['control', 'v']);
+  switch (true) {
+    case !resultBoolean && resultMessage !== null:
+      // "Талон амбулаторного пациента: Добавление", повторное заполнение не требуется
+      return [true, resultMessage];
+    case !resultBoolean && resultMessage === null:
+
+      // "Талон амбулаторного пациента: Добавление", талон требует повторного заполнения
+      return [false, resultMessage];
+    default:
+      return [true, resultMessage];
+  }
 };
-*/
 
 export {
-  toSleep, toClick, toCopy, toPaste, sleepUntilGetCorrectPixel, multipleTap, toCopyByKeyboard, toPasteByKeyboard, changeNetworkSpeed,
+  matchRequiredAndPointColors, changeNetworkSpeed, isRefillRequired,
 };

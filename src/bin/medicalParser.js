@@ -2,13 +2,23 @@
 /* eslint-disable max-len */
 
 import robot from 'robotjs';
-import key from 'node-key-sender';
 import clipboardy from 'clipboardy';
+import key from 'node-key-sender';
 
-import { medicalCareSpreadsheet } from './medicalSpreadsheet';
-import { sleepUntilGetCorrectPixel, toClick, toPasteByKeyboard } from '../utils';
+import {
+  medicalCareSpreadsheet,
+} from './medicalSpreadsheet';
 
-// должны высчитываться две даты, минимальная и максимальная. дата посередине - сегдняшняя или задается пользователем 
+import mouse from '../input-devices/mouse';
+import keyboard from '../input-devices/keyboard';
+
+import {
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
+
+
+/**
+// должны высчитываться две даты, минимальная и максимальная. дата посередине - сегдняшняя или задается пользователем
 // const searchDates = new Date();
 
 const array = medicalCareSpreadsheet[0];
@@ -23,35 +33,35 @@ const pathronymic = person[2];
 
 const birth = String(line[2]);
 
-robot.moveMouse(270, 545);
+mouse.move(270, 545);
 robot.mouseClick('left', true);
-toPasteByKeyboard(surname);
+keyboard.paste(surname);
 
-robot.keyTap('tab');
-toPasteByKeyboard(birth);
+keyboard.tap('tab');
+keyboard.paste(birth);
 
-robot.keyTap('tab');
-toPasteByKeyboard(name);
+keyboard.tap('tab');
+keyboard.paste(name);
 
-robot.keyTap('tab');
-toPasteByKeyboard(pathronymic);
+keyboard.tap('tab');
+keyboard.paste(pathronymic);
 
-robot.keyTap('enter');
+keyboard.tap('enter');
 
-sleepUntilGetCorrectPixel(100, 710, 'e4e5e8');
-sleepUntilGetCorrectPixel(100, 710, 'fbf0d2');
+sleepUntilGetCorrectPixel([100, 710], 'e4e5e8');
+sleepUntilGetCorrectPixel([100, 710], 'fbf0d2');
 
-toClick.normal(600, 650);
-toClick.normal(610, 745);
+mouse.click(600, 650);
+mouse.click(610, 745);
 
-sleepUntilGetCorrectPixel(775, 95, 'ededed');
+sleepUntilGetCorrectPixel([775, 95], 'ededed');
 
 key.sendCombination(['control', 'a']);
 key.sendCombination(['control', 'c']);
 
 console.log(clipboardy.readSync());
 
-/** 1. установить проверки на соответствие назначаемых услуг 203 приказу
-типа вообще предусмотрена ли эта услуга вообще или нет, ввести проверки на наличие узи перед кт мрт области ОБП ОМТ ЛИМФОУЗЛЫ
-2. составлять древовидную систему для отслеживания каждого этапа
+// 1. установить проверки на соответствие назначаемых услуг 203 приказу
+//типа вообще предусмотрена ли эта услуга вообще или нет, ввести проверки на наличие узи перед кт мрт области ОБП ОМТ ЛИМФОУЗЛЫ
+// 2. составлять древовидную систему для отслеживания каждого этапа
 */

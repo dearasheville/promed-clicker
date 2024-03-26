@@ -1,37 +1,42 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
-
-import robot from 'robotjs';
 
 import {
-  sleepUntilGetCorrectPixel, toClick, toPaste, 
-} from '../utils';
+  sleepUntilGetCorrectPixel,
+} from '../utils/sleep';
 
-const search = (surname, name, pathronymic, birth) => {
+import mouse from '../input-devices/mouse';
+import keyboard from '../input-devices/keyboard';
+
+const search = (patientData) => {
+  const patientBirth = patientData[0];
+  const patientSurname = patientData[1];
+  const patientName = patientData[2];
+  const patientPathronymic = patientData[3];
+
   // "Человек: поиск", фамилия
-  toClick.normal(480, 335);
-  toPaste.lower(surname);
+  mouse.click(575, 385);
+  mouse.paste(patientSurname);
 
   // "Человек: поиск", имя
-  toClick.normal(805, 335);
-  toPaste.lower(name);
+  mouse.click(835, 385);
+  mouse.paste(patientName);
 
   // "Человек: поиск", отчество
-  toClick.normal(1135, 335);
-  toPaste.lower(pathronymic);
+  mouse.click(1090, 385);
+  mouse.paste(patientPathronymic);
 
   // "Человек: поиск", дата рождения
-  toClick.normal(555, 395);
-  toPaste.lower(birth);
+  mouse.click(575, 435);
+  mouse.paste(patientBirth);
 
   // "Человек: поиск", подтверждение заполнения формы
-  robot.keyTap('enter');
+  keyboard.tap('enter');
 
-  sleepUntilGetCorrectPixel(440, 820, 'fbf0d2', 'ffcccc');
+  sleepUntilGetCorrectPixel([555, 764], 'fbf0d2', 'ffcccc');
 
-  robot.keyTap('enter');
-  // robot.keyTap('enter');
+  keyboard.tap('enter');
 };
+
+// search('Каргина', 'Елена', 'Геннадьевна', '17.07.1973');
 
 export default search;

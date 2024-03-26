@@ -1,220 +1,158 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable no-undef */
-/* eslint-disable max-len */
 
-import robot, { getPixelColor } from 'robotjs';
-import clipboardy from 'clipboardy';
+import robot from 'robotjs';
+
+import specific from './specific';
+
+import mouse from '../input-devices/mouse';
+import keyboard from '../input-devices/keyboard';
 
 import {
-  sleepUntilGetCorrectPixel, toClick, toCopy, toPaste, multipleTap, changeNetworkSpeed,
+  changeNetworkSpeed,
 } from '../utils';
 
-const diagnosts = [
-  [16009, 'Серов Оскар Валентинович'],
+import {
+  sleepUntilGetCorrectPixel, toSleep,
+} from '../utils/sleep';
 
-  [16069, 'Алтынова Алия Феликсовна'], [51254, 'Ибрагимов Булат Айдарович'], [50146, 'Рябова Вероника Юрьевна'],
-  [40000, 'Денисова Радмила Андреевна'],
+import errorPopupControl from '../utils/popup';
 
-  [15023, 'Баязитова Лилия Ивановна'], [50405, 'Хушмурадова Дилара Дусмурадовна'],
-  [20000, 'Сагитова Ирина Радиковна'], [30000, 'Бикметова Ильмира Ринатовна'], [10000, 'Мазитова Алина Фуатовна'],
-  [50000, 'Новиков Денис Алексеевич'], [60000, 'Гареев Алик Маликович'],
-  [70000, 'Халимуллина Светлана Ириковна'], [80000, 'Иванова Влада Владимировна'], [100000, 'Мударисова Диана Раилевна'],
+const visit = (diagnostData) => {
+  const researchDate = diagnostData[0];
+  const diagnostCode = diagnostData[1];
 
-  [15017, 'Яценко Татьяна Геннадьевна'], [15003, 'Фатхлисламова Гузэль Рифовна'], [15002, 'Хисамутдинова Гайша Масгутовна'],
-  [51566, 'Дианова Альбина Фануровна'],
-];
+  const medicalVisitCode = diagnostData[2];
+  const diseaseCode = diagnostData[4];
 
-/**
-const visitCodes = [
-  [874730, 'КТ головы без контрастирования'],
-  [874731, 'КТ грудного отдела без контрастирования'],
-  [874732, 'КТ конечностей без контрастирования'],
-  [874733, 'КТ костей без контрастирования'],
-  [874734, 'КТ молочной железы без контрастирования'],
-  [874735, 'КТ мягких тканей без контрастирования'],
-  [874736, 'КТ органов брюш.пол. и забрюш.прост. без контраст. '],
-  [874737, 'КТ органов грудной клетки без контрастирования'],
-  [874738, 'КТ органов малого таза без контрастирования'],
-  [874739, 'КТ позвоночника без контрастирования'],
-  [874740, 'КТ сосудов без контрастирования'],
-  [874741, 'КТ сустава без контрастирования'],
-  [874742, 'КТ шеи без контрастирования '],
-  [874752, 'КТ головы с контраст.и ангиогр.инжек.'],
-  [874753, 'КТ конечностей с контраст.и ангиогр.инжек. '],
-  [874754, 'КТ орг.брюш.и забр.прос.с контраст.и ангиогр.инж.'],
-  [874755, 'КТ орг. груд. полости с контраст.и ангиогр.инжек'],
-  [874756, 'КТ позвоночника с контраст.и ангиогр.инжек. '],
-  [874757, 'КТ сосудов с контраст.и ангиогр.инжек.'],
-  [874758, 'КТ шеи с контраст.и ангиогр.инжек.'],
-];
-*/
+  sleepUntilGetCorrectPixel([1700, 200], 'dcdde0', 'dddee1', 'efefef', 'f0f0f0');
+  sleepUntilGetCorrectPixel([1700, 200], 'efefef', 'f0f0f0');
 
-const hospital = () => {
-  /**
-  Должна быть проверка на цвет фона, чтобы определить какое окно выскачило: стационар или простая прогрузка.
-  В противном случае, снижение длительности сна ведет к тому, что проверка в любом случае проходит (на медленном 3G).
-  */
+  toSleep(2500); // ?
 
-  // toSleep(5000);
-  sleepUntilGetCorrectPixel(1308, 196, 'd0d1d4', '556677');
-
-  const isHospital = robot.getPixelColor(1308, 196) === 'd0d1d4';
-
-  // "Пересечение со случаем стационарного лечения", ситуационный попап
-  if (isHospital) {
-    toCopy.test();
-
-    const isOncology = clipboardy.readSync().indexOf('ГАУЗ РКОД МЗ РБ') !== -1;
-
-    if (isOncology) {
-      // "Пересечение со случаем стационарного лечения", кнопка "нет"
-      toClick.normal(1040, 620);
-
-      // "Посещение пациентом поликлиники: Добавление", белый фон
-      sleepUntilGetCorrectPixel(1500, 500, 'ffffff');
-
-      // "Посещение пациентом поликлиники: Добавление", кнопка "отмена"
-      toClick.normal(1860, 1050);
-
-      return false;
-    }
-
-    // "Пересечение со случаем стационарного лечения", кнопка "да"
-    toClick.normal(940, 620);
-  }
-
-  return true;
-};
-
-const visit = (diseaseCode, visitCode, diagnost, date) => {
-  sleepUntilGetCorrectPixel(800, 300, 'ccffcc');
-
-  changeNetworkSpeed('toLow');
+  sleepUntilGetCorrectPixel([800, 300], 'ccffcc');
 
   // "Посещение пациентом поликлиники: Добавление", дата
-  toClick.normal(380, 240);
-  robot.typeString(date);
+  mouse.click(380, 240);
+  keyboard.type(researchDate);
 
-  multipleTap(robot.keyTap, 'tab', 4);
+  keyboard.tap('tab', 4);
 
   // "Посещение пациентом поликлиники: Добавление", врач
-  const diagnostCode = String(diagnosts.find(elem => elem[1].split(' ').join(' ') === diagnost)[0]);
-
-  // toSleep(250); // Нестабильная форма ("врач" и "код посещения")!
-  robot.typeString(diagnostCode);
-  // toPasteByKeyboard(diagnostCode.slice(0, -1));
-  // robot.typeString(diagnostCode.substr(-1));
-  // toPasteByKeyboardJava(diagnostCode);
-
-  sleepUntilGetCorrectPixel(1100, 360, 'fbf0d2');
-
-  robot.keyTap('enter');
-
-  /**
-  // Необходимо скорректировать проверку на достоверность ввода, до проверки на желтый цвет ховера
-  if (!testCorrectData(diagnostCode)) {
-    toPasteByKeyboardJava(diagnostCode);
-
-    sleepUntilGetCorrectPixel(1100, 330, 'fbf0d2');
-
-    robot.keyTap('enter');
-  }
-  */
+  keyboard.type(diagnostCode);
+  sleepUntilGetCorrectPixel([1100, 360], 'fbf0d2');
+  keyboard.tap('enter');
 
   // "Посещение пациентом поликлиники: Добавление", поле "вид обращения" доступно для заполнения
-  sleepUntilGetCorrectPixel(321, 371, 'ccffcc'); // Установить проверки на доступность полей повсеместно?
+  sleepUntilGetCorrectPixel([321, 371], 'ccffcc');
 
-  multipleTap(robot.keyTap, 'tab', 2);
+  keyboard.tap('tab', 2);
 
   // "Посещение пациентом поликлиники: Добавление", вид обращения
-  if (diseaseCode.slice(0, 1) === 'Z') {
-    robot.keyTap(2);
-  } else {
-    robot.keyTap(1);
+  switch (diseaseCode.slice(0, 1).toLowerCase()) {
+    case 'z':
+      keyboard.tap(2);
+      break;
+    default:
+      keyboard.tap(1);
+      break;
   }
 
-  multipleTap(robot.keyTap, 'tab', 3);
+  keyboard.tap('tab', 3);
 
   // "Посещение пациентом поликлиники: Добавление", цель посещения
-  if (diseaseCode.slice(0, 1) === 'Z') {
-    robot.keyTap(2);
-  } else {
-    robot.keyTap(1);
+  switch (diseaseCode.slice(0, 1).toLowerCase()) {
+    case 'z':
+      keyboard.tap(2);
+      break;
+    default:
+      keyboard.tap(1);
+      break;
   }
 
-  multipleTap(robot.keyTap, 'tab', 3);
+  keyboard.tap('tab', 3);
 
   // "Посещение пациентом поликлиники: Добавление", код посещения
-  // const visitName = String(visitCodes.find(elem => String(elem[0]) === visitCode)[1]); // Добавить для корректности проверки МРТ и РНД.
+  sleepUntilGetCorrectPixel([663, 561], 'ccffcc');
+  keyboard.type(medicalVisitCode);
+  sleepUntilGetCorrectPixel([319, 611], 'fbf0d2');
+  keyboard.tap('enter');
 
-  sleepUntilGetCorrectPixel(663, 561, 'ccffcc');
+  mouse.click(900, 250);
+  keyboard.tap('pagedown', 3);
 
-  // toSleep(250); // Нестабильная форма ("врач" и "код посещения")!
-  robot.typeString(visitCode);
-  // toPasteByKeyboardJava(visitCode);
-  // toPasteByKeyboard(visitCode.slice(0, -1));
-  // robot.typeString(visitCode.substr(-1));
-
-  sleepUntilGetCorrectPixel(319, 611, 'fbf0d2');
-
-  robot.keyTap('enter');
-
-  /**
-  if (!testCorrectData(visitName)) { // Необходимо скорректировать проверку на достоверность ввода до проверки на желтизну.
-    robot.typeString(visitCode);
-
-    sleepUntilGetCorrectPixel(1100, 330, 'fbf0d2');
-
-    robot.keyTap('enter');
-  }
-  */
-
-  // "Посещение пациентом поликлиники: Добавление", диагноз
-  const gender = robot.getPixelColor(805, 905) === 'ccffcc' ? 'Мужской' : 'Женский';
-
-  switch (gender) {
-    case 'Мужской':
-      toClick.normal(805, 900);
-      break;
-    case 'Женский':
-      toClick.normal(805, 935);
-      break;
-    default:
-      break;
-  }
-
-  // toPasteByKeyboard(diseaseCode.slice(0, -1));
-  toPaste.upper(diseaseCode.slice(0, -1));
-  robot.typeString(diseaseCode.substr(-1));
-
-  switch (gender) {
-    case 'Мужской':
-      robot.moveMouse(1000, 925);
-      sleepUntilGetCorrectPixel(295, 925, 'fbf0d2');
-      break;
-    case 'Женский':
-      robot.moveMouse(1000, 955);
-      sleepUntilGetCorrectPixel(295, 955, 'fbf0d2');
-      break;
-    default:
-      break;
-  }
-
-  robot.keyTap('tab');
+  sleepUntilGetCorrectPixel([1800, 735], 'f0f0f0');
 
   // "Посещение пациентом поликлиники: Добавление", характер
-  sleepUntilGetCorrectPixel(1500, 500, 'e4e5e8');
-  sleepUntilGetCorrectPixel(1500, 500, 'ffffff');
+  switch (true) {
+    case robot.getPixelColor(300, 430) === 'ccffcc':
+      mouse.click(300, 430);
+      break;
+    case robot.getPixelColor(300, 490) === 'ccffcc':
+      mouse.click(300, 490);
+      break;
+    default:
+      break;
+  }
 
-  robot.keyTap(3);
+  keyboard.tap(3);
+
+  // "Посещение пациентом поликлиники: Добавление", сторона поражения
+  const mustTestBeFilled = robot.getPixelColor(300, 395) === 'ccffcc' || robot.getPixelColor(300, 455) === 'ccffcc';
+
+  if (mustTestBeFilled) {
+    switch (true) {
+      case robot.getPixelColor(295, 395) === 'ccffcc':
+        mouse.click(300, 395);
+
+        keyboard.tap(4);
+
+        sleepUntilGetCorrectPixel([295, 410], 'fbf0d2');
+
+        mouse.click(295, 410);
+        break;
+      default:
+        break;
+    }
+
+    // "Специфика", загрузка формы ожидания
+    sleepUntilGetCorrectPixel([1700, 200], 'dcdde0', 'dddee1');
+  }
+
+  const mustSpecificsBeFilled = diseaseCode.slice(0, 1) === 'C' || diseaseCode.slice(0, 2) === 'D0';
+
+  if (mustSpecificsBeFilled) {
+    mouse.move(100, 765);
+    sleepUntilGetCorrectPixel([75, 765], 'eeeeee');
+
+    // "Специфика: специфика (онкология)"
+    mouse.click(125, 765);
+
+    // "Специфика", загрузка формы ожидания
+    sleepUntilGetCorrectPixel([1700, 200], 'dcdde0', 'dddee1');
+    sleepUntilGetCorrectPixel([1700, 200], 'd0d1d4', 'e3e3e3', '556677'); // Попап в посещении, фон в специфике или фон талона
+
+    const testResult = errorPopupControl('medicalVisitAndMedicalSpecific', [1308, 196], 'd0d1d4');
+
+    const testResultBoolean = testResult[0];
+
+    if (!testResultBoolean) {
+      return testResult;
+    }
+
+    specific();
+
+    sleepUntilGetCorrectPixel([1700, 200], 'dcdde0', 'dddee1', 'efefef', 'f0f0f0');
+    sleepUntilGetCorrectPixel([1700, 200], 'efefef', 'f0f0f0');
+  }
+
+  changeNetworkSpeed('toMedium');
 
   // "Посещение пациентом поликлиники: Добавление", кнопка "сохранить"
-  toClick.normal(110, 1050);
+  mouse.click(110, 1050);
 
-  // "Подождите, идет сохранение посещения", фон статус-бара
-  sleepUntilGetCorrectPixel(1500, 500, 'e4e5e8');
+  sleepUntilGetCorrectPixel([1700, 195], 'd0d1d4', 'e3e3e3', '556677'); // Попап в посещении, фон в специфике или фон талона
 
-  return hospital();
+  return errorPopupControl('medicalVisitAndMedicalSpecific', [1308, 196], 'd0d1d4');
 };
 
 export default visit;
