@@ -9,10 +9,7 @@ const servicesTypes = ['802', '874', '875', '876'];
 
 const clickerEngine = (clicker) => {
   spreadsheet.forEach((row) => {
-    const normalizedRow = row
-      .slice(rowColumnStart, rowColumnEnd)
-      .map(String)
-      .map((cell) => cell.split(' ').join(' '));
+    const normalizedRow = row.slice(rowColumnStart, rowColumnEnd).map(String);
 
     const [direction] = normalizedRow;
 
@@ -24,7 +21,9 @@ const clickerEngine = (clicker) => {
     const clinician = getData(normalizedRow, 'clinician');
     const diagnost = getData(normalizedRow, 'diagnost');
 
-    if (!(patient && clinician && diagnost)) {
+    const isDataFull = !!(patient && clinician && diagnost);
+
+    if (!isDataFull) {
       return false;
     }
 
