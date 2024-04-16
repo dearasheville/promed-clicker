@@ -1,6 +1,10 @@
 import mouse from '../input-devices/mouse.js';
 
-class Button {
+const pixelsForPointLeftCenter = {
+  x: 5,
+};
+
+class Link {
   constructor(data) {
     this.startPoint = data.point;
     this.width = data.width;
@@ -24,18 +28,18 @@ class Button {
     };
   }
 
-  get pointCenter() {
+  get pointLeftCenter() {
     const point = {
-      x: (this.startPoint.x + this.point4.x) / 2,
+      x: this.startPoint.x + pixelsForPointLeftCenter.x,
       y: (this.startPoint.y + this.point2.y) / 2,
     };
 
     return point;
   }
 
-  press() {
-    mouse.click(this.pointCenter);
+  click() {
+    mouse.click(this.pointLeftCenter);
   }
 }
 
-export default Button;
+export default Link;

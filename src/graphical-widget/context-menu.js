@@ -4,7 +4,7 @@ import clipboardy from 'clipboardy';
 import mouse from '../input-devices/mouse.js';
 
 import {
-  sleepUntilPointColorMatchesList,
+  sleepUntilPointColorUnmatchesList,
 } from '../utils/sleep.js';
 
 const contextMenuPoint = {
@@ -45,7 +45,7 @@ class ContextMenu {
         mouse.click(this.startPoint, 'right');
 
         mouse.move(contextMenuPoint.copy.lower);
-        sleepUntilPointColorMatchesList(contextMenuPoint.copy.lower, contextMenuColor.highlighted);
+        sleepUntilPointColorUnmatchesList(contextMenuPoint.copy.lower, contextMenuColor.highlighted);
 
         mouse.click(contextMenuPoint.copy.lower);
         break;
@@ -53,7 +53,7 @@ class ContextMenu {
         mouse.click(this.startPoint, 'right');
 
         mouse.move(contextMenuPoint.copy.upper);
-        sleepUntilPointColorMatchesList(contextMenuPoint.copy.upper, contextMenuColor.highlighted);
+        sleepUntilPointColorUnmatchesList(contextMenuPoint.copy.upper, contextMenuColor.highlighted);
 
         mouse.click(contextMenuPoint.copy.upper);
         break;
@@ -72,7 +72,7 @@ class ContextMenu {
         mouse.click(this.startPoint, 'right');
 
         mouse.move(contextMenuPoint.paste.lower);
-        sleepUntilPointColorMatchesList(contextMenuPoint.paste.lower, contextMenuColor.highlighted);
+        sleepUntilPointColorUnmatchesList(contextMenuPoint.paste.lower, contextMenuColor.highlighted);
 
         mouse.click(contextMenuPoint.paste.lower);
         break;
@@ -82,7 +82,7 @@ class ContextMenu {
         mouse.click(this.startPoint, 'right');
 
         mouse.move(contextMenuPoint.paste.upper);
-        sleepUntilPointColorMatchesList(contextMenuPoint.paste.upper, contextMenuColor.highlighted);
+        sleepUntilPointColorUnmatchesList(contextMenuPoint.paste.upper, contextMenuColor.highlighted);
 
         mouse.click(contextMenuPoint.paste.upper);
         break;
