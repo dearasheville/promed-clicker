@@ -5,8 +5,8 @@
   "type": "module",
   "dependencies": {
     "clipboardy": "^3.0.0",
-    "node-xlsx": "^0.15.0",
     "node-gyp": "^9.4.0",
+    "node-xlsx": "^0.15.0",
     "robotjs": "^0.6.0"
   },
   "devDependencies": {
@@ -15,10 +15,10 @@
     "babel-eslint": "^8.2.6",
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1",
-    "eslint": "^8.45.0",
+    "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-import": "^2.27.5"
+    "eslint-plugin-import": "^2.29.1"
   },
   "scripts": {
     "babel-node": "babel-node",
@@ -27,6 +27,6 @@
     "paraclinic-remover": "babel-node bin/paraclinic-remover.js",
     "policlinic-remover": "babel-node bin/policlinic-remover.js",
     "test": "babel-node src/test.js",
-    "lint": "npx eslint ."
+    "lint": "eslint ."
   }
 }
