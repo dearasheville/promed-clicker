@@ -12,6 +12,12 @@ const getServiceId = (service) => {
   return key;
 };
 
+const getServiceType = (service) => {
+  const [key, point = 1] = service.split('.');
+
+  return services[key][point].type;
+};
+
 const getRmsCode = (service) => {
   const [key, point = 1] = service.split('.');
 
@@ -32,6 +38,8 @@ const getCode = (data, type) => {
       return getDiagnostId(data);
     case 'service':
       return getServiceId(data);
+    case 'type':
+      return getServiceType(data);
     case 'rms':
       return getRmsCode(data);
     case 'fdids':

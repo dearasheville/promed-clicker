@@ -46,7 +46,7 @@ const getDiagnost = (row) => {
   }
 
   const diagnost = {
-    id, date,
+    id, date, fullname,
   };
 
   return diagnost;
@@ -56,9 +56,10 @@ const getService = (cell) => {
   const id = getCode(cell, 'service');
   const rms = getCode(cell, 'rms');
   const fdids = getCode(cell, 'fdids');
+  const type = getCode(cell, 'type');
 
   const service = {
-    id, rms, fdids,
+    id, type, rms, fdids,
   };
 
   return service;
