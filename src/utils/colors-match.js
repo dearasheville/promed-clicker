@@ -2,9 +2,10 @@ import robot from 'robotjs';
 
 const doPointColorAndListColorMatch = (point, ...colors) => {
   const { x, y } = point;
+  const normalizedColors = colors.flat(Infinity);
 
   const pointColor = robot.getPixelColor(x, y);
-  const doColorsMatch = !!colors.find((color) => color === pointColor);
+  const doColorsMatch = normalizedColors.includes(pointColor);
 
   return doColorsMatch;
 };
