@@ -53,7 +53,7 @@ const alphabet = {
 
 const keyboardVirtual = {
   type: (text) => {
-    const normalizedText = text.split(' (')[0].toLowerCase();
+    const [normalizedText] = text.toLowerCase().split(' (');
 
     normalizedText.split('').forEach((letter) => {
       mouse.click(alphabet[letter]);
