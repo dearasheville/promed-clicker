@@ -1,11 +1,12 @@
 import robot from 'robotjs';
 
-import mouse from '../../input-devices/mouse.js';
-import keyboard from '../../input-devices/keyboard.js';
+import mouse from '../../src/input-devices/mouse.js';
+import keyboard from '../../src/input-devices/keyboard.js';
 
 import {
-  toSleep, sleepUntilGetCorrectPixel,
-} from '../../utils/sleep.js';
+  sleepForMs,
+  sleepUntilPointColorUnmatchesList,
+} from '../../src/utils/sleep.js';
 
 const service3 = (diagnostData) => {
   const researchDate = diagnostData[0];
@@ -16,18 +17,18 @@ const service3 = (diagnostData) => {
   keyboard.tap('pageup');
 
   // "Результат выполнения услуги: Основные данные", "Код посещения"
-  sleepUntilGetCorrectPixel([235, 318], 'ccffcc');
+  sleepUntilPointColorUnmatchesList([235, 318], 'ccffcc');
 
   // "Результат выполнения услуги: Основные данные", "Услуга: Поиск"
   mouse.click(722, 326);
-  sleepUntilGetCorrectPixel([1745, 380], 'd6d8da');
+  sleepUntilPointColorUnmatchesList([1745, 380], 'd6d8da');
 
-  toSleep(1000); // ?
+  sleepForMs(1000); // ?
 
   keyboard.type(medicalVisitCode);
   keyboard.tap('enter');
 
-  toSleep(2000); // ??
+  sleepForMs(2000); // ??
   keyboard.tap('enter', 2);
 
   // "Результат выполнения услуги: Основные данные", "Дата исследования"
@@ -40,10 +41,10 @@ const service3 = (diagnostData) => {
 
   // "Результат выполнения услуги: Основные данные", "Врач"
   mouse.click(235, 500);
-  toSleep(1000); // ??
+  sleepForMs(1000); // ??
   keyboard.type(diagnostCode);
   mouse.move(240, 540);
-  sleepUntilGetCorrectPixel([238, 540], 'fbf0d2');
+  sleepUntilPointColorUnmatchesList([238, 540], 'fbf0d2');
   keyboard.tap('enter');
 
   // "Результат выполнения услуги: Основные данные", "Лучевая нагрузка"
@@ -67,7 +68,7 @@ const service3 = (diagnostData) => {
   }
 
   mouse.move(235, 915);
-  sleepUntilGetCorrectPixel([235, 915], 'fbf0d2');
+  sleepUntilPointColorUnmatchesList([235, 915], 'fbf0d2');
   keyboard.tap('enter');
 };
 

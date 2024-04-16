@@ -1,9 +1,9 @@
 import {
-  sleepUntilGetCorrectPixel,
-} from '../utils/sleep.js';
+  sleepUntilPointColorUnmatchesList,
+} from '../src/utils/sleep.js';
 
-import mouse from '../input-devices/mouse.js';
-import keyboard from '../input-devices/keyboard.js';
+import mouse from '../src/input-devices/mouse.js';
+import keyboard from '../src/input-devices/keyboard.js';
 
 const search = (patientData) => {
   const [patientBirth, patientSurname, patientName, patientPathronymic] = patientData;
@@ -27,7 +27,7 @@ const search = (patientData) => {
   // "Человек: поиск", подтверждение заполнения формы
   keyboard.tap('enter');
 
-  sleepUntilGetCorrectPixel([555, 764], 'fbf0d2', 'ffcccc');
+  sleepUntilPointColorUnmatchesList([555, 764], 'fbf0d2', 'ffcccc');
 
   keyboard.tap('enter');
 };
