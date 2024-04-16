@@ -1,6 +1,6 @@
 import robot from 'robotjs';
 
-const mouseStandartDelay = 10;
+const mouseStandartDelay = 250;
 
 const mouse = {
   move: ({ x, y }, style = 'standart', delay = mouseStandartDelay) => {
