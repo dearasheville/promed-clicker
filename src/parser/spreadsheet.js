@@ -1,5 +1,9 @@
 import xlsx from 'node-xlsx';
 
-const spreadsheet = xlsx.parse('./spreadsheets/spreadsheet.xlsx')[0].data.slice(1);
+const sheetNumber = 1;
+const sheetTitle = 1;
+
+const data = xlsx.parse('./spreadsheets/spreadsheet.xlsx');
+const spreadsheet = data[sheetNumber].data.slice(sheetTitle);
 
 export default spreadsheet;
