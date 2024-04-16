@@ -2,7 +2,7 @@ import mouse from '../input-devices/mouse.js';
 import keyboard from '../input-devices/keyboard.js';
 
 import {
-  sleepUntilPointColorMatchesList,
+  sleepUntilPointColorUnmatchesList,
 } from './sleep.js';
 
 const switchActiveAppToDevTools = () => {
@@ -56,22 +56,22 @@ const networkMenu = {
 const changeNetworkSpeed = (speed) => {
   switchActiveAppToDevTools();
 
-  sleepUntilPointColorMatchesList(devTools.point.activate, devTools.color.active);
+  sleepUntilPointColorUnmatchesList(devTools.point.activate, devTools.color.active);
 
   mouse.click(networkMenu.point.activate);
 
   switch (speed) {
     case 'high':
       mouse.move(networkMenu.point.highSpeed);
-      sleepUntilPointColorMatchesList(networkMenu.point.highSpeed, networkMenu.color.active);
+      sleepUntilPointColorUnmatchesList(networkMenu.point.highSpeed, networkMenu.color.active);
       break;
     case 'medium':
       mouse.move(networkMenu.point.medSpeed);
-      sleepUntilPointColorMatchesList(networkMenu.point.medSpeed, networkMenu.color.active);
+      sleepUntilPointColorUnmatchesList(networkMenu.point.medSpeed, networkMenu.color.active);
       break;
     case 'low':
       mouse.move(networkMenu.point.lowSpeed);
-      sleepUntilPointColorMatchesList(networkMenu.point.lowSpeed, networkMenu.color.active);
+      sleepUntilPointColorUnmatchesList(networkMenu.point.lowSpeed, networkMenu.color.active);
       break;
     default:
       break;
