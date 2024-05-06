@@ -6,7 +6,7 @@ import {
   serviceLinkData,
   filterField,
   requestField,
-} from './data-forms/requests.js';
+} from '../data-forms/requests.js';
 
 import Button from '../../graphical-widget/button.js';
 import SimpleForm from '../../graphical-widget/form-simple.js';

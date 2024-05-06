@@ -1,7 +1,7 @@
 import {
   saveButtonData,
   mainDataField,
-} from './data-forms/result.js';
+} from '../data-forms/result.js';
 
 import result1 from './results/result1.js';
 import result2 from './results/result2.js';

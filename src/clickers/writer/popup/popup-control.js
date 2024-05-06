@@ -1,19 +1,19 @@
 import {
   filterField,
   requestField,
-} from '../data-forms/requests.js';
+} from '../../data-forms/requests.js';
 
 import {
   patientField,
-} from '../data-forms/search.js';
+} from '../../data-forms/search.js';
 
 import {
   directionField,
-} from '../data-forms/direction.js';
+} from '../../data-forms/direction.js';
 
 import {
   mainDataField,
-} from '../data-forms/result.js';
+} from '../../data-forms/result.js';
 
 import mouse from '../../../peripherals/mouse.js';
 import keyboard from '../../../peripherals/keyboard.js';

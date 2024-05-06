@@ -5,7 +5,7 @@ import {
   journalFormData,
   diagnostFormData,
   dosimetryFormData,
-} from '../data-forms/results/result2.js';
+} from '../../data-forms/results/result2.js';
 
 import SimpleForm from '../../../graphical-widget/form-simple.js';
 import BigComplexForm from '../../../graphical-widget/form-big.js';

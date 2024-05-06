@@ -7,7 +7,7 @@ import {
   birthdayFormData,
   filterField,
   patientField,
-} from './data-forms/search.js';
+} from '../data-forms/search.js';
 
 import Button from '../../graphical-widget/button.js';
 import SimpleForm from '../../graphical-widget/form-simple.js';

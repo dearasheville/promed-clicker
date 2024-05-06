@@ -12,7 +12,7 @@ import {
   rmsFormData,
   fdidsFormData,
   directionField,
-} from './data-forms/direction.js';
+} from '../data-forms/direction.js';
 
 import popupControl from './popup/popup-control.js';
 

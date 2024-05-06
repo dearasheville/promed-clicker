@@ -6,7 +6,7 @@ import {
   diagnostFormData,
   dosimetryFormData,
   zoneFormData,
-} from '../data-forms/results/result3.js';
+} from '../../data-forms/results/result3.js';
 
 import SimpleForm from '../../../graphical-widget/form-simple.js';
 import BigComplexForm from '../../../graphical-widget/form-big.js';

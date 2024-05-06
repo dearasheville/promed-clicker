@@ -4,7 +4,7 @@ import {
   timeFormData,
   diagnostFormData,
   dosimetryFormData,
-} from '../data-forms/results/result1.js';
+} from '../../data-forms/results/result1.js';
 
 import SimpleForm from '../../../graphical-widget/form-simple.js';
 import BigComplexForm from '../../../graphical-widget/form-big.js';
