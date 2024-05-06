@@ -1,74 +1,21 @@
-import SimpleForm from '../../../graphical-widget/form-simple.js';
-import BigComplexForm from '../../../graphical-widget/form-big.js';
+import {
+  visitFormData,
+  dateFormData,
+  timeFormData,
+  journalFormData,
+  diagnostFormData,
+  dosimetryFormData,
+  zoneFormData,
+} from '../data-forms/results/result3.js';
+
+import SimpleForm from '../../graphical-widget/form-simple.js';
+import BigComplexForm from '../../graphical-widget/form-big.js';
 
 const journal = 0;
 const dosimetry = 0;
 
 const zone1 = 159;
 const zone2 = 11;
-
-const visitFormData = {
-  point: {
-    x: 233,
-    y: 339,
-  },
-  width: 483,
-  height: 22,
-};
-
-const dateFormData = {
-  point: {
-    x: 233,
-    y: 365,
-  },
-  width: 100,
-  height: 22,
-};
-
-const timeFormData = {
-  point: {
-    x: 388,
-    y: 365,
-  },
-  width: 60,
-  height: 22,
-};
-
-const journalFormData = {
-  point: {
-    x: 233,
-    y: 391,
-  },
-  width: 150,
-  height: 22,
-};
-
-const diagnostFormData = {
-  point: {
-    x: 233,
-    y: 511,
-  },
-  width: 500,
-  height: 22,
-};
-
-const dosimetryFormData = {
-  point: {
-    x: 233,
-    y: 615,
-  },
-  width: 100,
-  height: 22,
-};
-
-const zoneFormData = {
-  point: {
-    x: 234,
-    y: 912,
-  },
-  width: 500,
-  height: 22,
-};
 
 const visitForm = new BigComplexForm(visitFormData);
 const dateForm = new SimpleForm(dateFormData);
@@ -79,7 +26,7 @@ const dosimetryForm = new SimpleForm(dosimetryFormData);
 const zoneForm = new SimpleForm(zoneFormData);
 
 const result3 = (diagnost, service) => {
-  visitForm.expand().type(service.id).confirm();
+  visitForm.expand().paste(service.id).confirm();
   dateForm.paste(diagnost.date);
   timeForm.paste(diagnost.time);
   journalForm.paste(journal);

@@ -1,42 +1,33 @@
-import keyboard from '../../input-devices/keyboard.js';
-import mouse from '../../input-devices/mouse.js';
-
-import Button from '../../graphical-widget/button.js';
+import {
+  saveButtonData,
+  mainDataField,
+} from './data-forms/result.js';
 
 import result1 from './results/result1.js';
 import result2 from './results/result2.js';
 import result3 from './results/result3.js';
 import result4 from './results/result4.js';
 
-import {
-  sleepUntilPointColorUnmatchesList,
-} from '../../utils/sleep.js';
+import popupControl from './popup/popup-control.js';
 
-const saveButtonData = {
-  point: {
-    x: 75,
-    y: 1050,
-  },
-  width: 77,
-  height: 21,
-};
+import keyboard from '../peripherals/keyboard.js';
+import mouse from '../peripherals/mouse.js';
+
+import Button from '../graphical-widget/button.js';
+
+import {
+  sleepForMs,
+  sleepUntilPointColorUnmatchesList,
+} from '../utils/sleep.js';
+
+const msToDelay = 5000;
 
 const saveButton = new Button(saveButtonData);
 
-const mainDataField = {
-  point: {
-    x: 1650,
-    y: 300,
-  },
-  color: {
-    normal: 'ffffff',
-    covered: 'e3e5e7',
-    popup: 'd6d8da',
-  },
-};
-
 const result = (diagnost, service) => {
   sleepUntilPointColorUnmatchesList(mainDataField.point, mainDataField.color.normal);
+
+  sleepForMs(msToDelay); // ??
 
   mouse.click(mainDataField.point);
   keyboard.scroll('top');
@@ -75,6 +66,8 @@ const result = (diagnost, service) => {
   }
 
   saveButton.press();
+
+  popupControl.result();
 };
 
 export default result;
