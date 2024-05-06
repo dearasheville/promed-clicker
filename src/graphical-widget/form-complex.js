@@ -1,9 +1,8 @@
-import mouse from '../input-devices/mouse.js';
+import mouse from '../peripherals/mouse.js';
 
 import SimpleForm from './form-simple.js';
 
 import {
-  sleepForMs,
   sleepUntilPointColorMatchesList,
   sleepUntilPointColorUnmatchesList,
 } from '../utils/sleep.js';
@@ -38,7 +37,7 @@ class ComplexForm extends SimpleForm {
   expand() {
     super.expand();
 
-    sleepForMs(2500);
+    this.sleep();
 
     mouse.move(this.firstOptionPoint);
 
@@ -48,7 +47,7 @@ class ComplexForm extends SimpleForm {
   }
 
   confirm() {
-    sleepForMs(2500);
+    this.sleep();
 
     mouse.move(this.firstOptionPoint);
     this.sleepUntilFormExpand();

@@ -1,15 +1,17 @@
-import mouse from '../input-devices/mouse.js';
-import keyboard from '../input-devices/keyboard.js';
+import mouse from '../peripherals/mouse.js';
+import keyboard from '../peripherals/keyboard.js';
+import screen from '../peripherals/screen.js';
 
 import Button from './button.js';
 
 import {
+  doPointColorAndListColorMatch,
+} from '../utils/colors.js';
+
+import {
+  sleepForMs,
   sleepUntilPointColorUnmatchesList,
 } from '../utils/sleep.js';
-
-const pixelsForPointControlButton = {
-  x: 7,
-};
 
 const pixelsForPointLeftCenter = {
   x: 2,
@@ -65,11 +67,11 @@ class SimpleForm {
     return point;
   }
 
-  get pointExpandButton() {
+  get pointOptionButton() {
     const width = 17;
     const height = 22;
 
-    const expandButtonData = {
+    const optionButtonData = {
       point: {
         x: this.point4.x - width,
         y: this.point4.y,
@@ -78,12 +80,9 @@ class SimpleForm {
       height,
     };
 
-    const expandButton = new Button(expandButtonData);
+    const optionButton = new Button(optionButtonData);
 
-    const point = {
-      x: expandButton.startPoint.x + pixelsForPointControlButton.x,
-      y: expandButton.pointCenter.y,
-    };
+    const point = optionButton.pointCenter;
 
     return point;
   }
@@ -95,9 +94,23 @@ class SimpleForm {
     return this;
   }
 
-  expand() {
+  sleep(ms = 2500) {
     this.activate();
-    mouse.click(this.pointExpandButton);
+
+    sleepForMs(ms);
+
+    return this;
+  }
+
+  option() {
+    this.activate();
+    mouse.click(this.pointOptionButton);
+
+    return this;
+  }
+
+  expand() {
+    this.option();
 
     return this;
   }
@@ -127,16 +140,24 @@ class SimpleForm {
     return this;
   }
 
-  tap(data) {
+  clear() {
     this.activate();
-    keyboard.tap(data);
+    keyboard.selectAll();
+    keyboard.tap('delete');
 
     return this;
   }
 
-  type(data) {
+  tap(key, modifier, count, delay) {
     this.activate();
-    keyboard.type(data);
+    keyboard.tap(key, modifier, count, delay);
+
+    return this;
+  }
+
+  type(text, delay) {
+    this.activate();
+    keyboard.type(text, delay);
 
     return this;
   }
@@ -162,6 +183,24 @@ class SimpleForm {
     keyboard.tap('enter');
 
     return this;
+  }
+
+  isActive() {
+    const isFormActive = doPointColorAndListColorMatch(
+      this.startPoint,
+      outline.color.active,
+    );
+
+    return isFormActive;
+  }
+
+  isRequired() {
+    const isFormRequired = doPointColorAndListColorMatch(
+      this.startPoint,
+      outline.color.required,
+    );
+
+    return isFormRequired;
   }
 
   sleepUntilFormBecomeActive() {
