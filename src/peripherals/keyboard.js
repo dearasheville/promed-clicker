@@ -1,5 +1,6 @@
 import robot from 'robotjs';
-import clipboardy from 'clipboardy';
+
+import clipboard from '../utils/clipboard.js';
 
 const keyboardStandartDelay = 10;
 
@@ -32,14 +33,14 @@ const keyboard = {
   copy: () => {
     keyboard.tap('c', ['control']);
 
-    const data = clipboardy.readSync();
+    const data = clipboard.read();
 
     return data;
   },
   paste: (data = '') => {
     const normalizedData = String(data);
 
-    clipboardy.writeSync(normalizedData);
+    clipboard.write(normalizedData);
 
     keyboard.tap('v', ['control']);
   },
