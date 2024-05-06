@@ -3,10 +3,12 @@ import {
 } from '../../utils/sleep.js';
 
 import requests from './requests.js';
-import reason from './reason.js';
+import reason from './denial.js';
+
+const msToDelay = 2500;
 
 const paraclinicRemover = (patient, clinician, diagnost, service, number) => {
-  sleepForMs(2500);
+  sleepForMs(msToDelay);
 
   requests(patient, number);
   reason();
