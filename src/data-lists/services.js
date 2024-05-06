@@ -99,6 +99,7 @@ const services = {
       fdids: '7000276',
     },
     2: {
+      type: 'mri',
       rms: 'A05.03.003.001',
     },
   },
@@ -109,6 +110,7 @@ const services = {
       fdids: '7000045',
     },
     2: {
+      type: 'mri',
       rms: 'A05.23.009.008',
       fdids: '7000037',
     },
@@ -162,6 +164,7 @@ const services = {
     1: {
       type: 'ct',
       rms: 'A06.01.001',
+      fdids: '7002884',
     },
   },
   874736: {
@@ -185,6 +188,7 @@ const services = {
       fdids: '7002116',
     },
     2: {
+      type: 'ct',
       rms: 'A06.20.002',
       fdids: '7002116',
     },
@@ -227,6 +231,7 @@ const services = {
       rms: 'A06.03.021.003',
     },
     2: {
+      type: 'ct',
       rms: 'A06.03.036.003',
     },
   },
@@ -299,6 +304,7 @@ const services = {
       fdids: '7006729',
     },
     5: {
+      type: 'spect',
       rms: 'A07.28.002',
       fdids: '7006851',
     },
@@ -327,6 +333,7 @@ const services = {
       fdids: '7007081',
     },
     3: {
+      type: 'spect',
       rms: 'A07.03.003',
       fdids: '7007024',
     },
