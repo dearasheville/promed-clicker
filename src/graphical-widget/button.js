@@ -1,4 +1,4 @@
-import mouse from '../input-devices/mouse.js';
+import mouse from '../peripherals/mouse.js';
 
 class Button {
   constructor(data) {

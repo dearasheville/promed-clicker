@@ -1,4 +1,4 @@
-import mouse from '../input-devices/mouse.js';
+import mouse from '../peripherals/mouse.js';
 
 const pixelsForPointLeftCenter = {
   x: 5,

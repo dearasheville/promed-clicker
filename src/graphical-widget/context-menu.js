@@ -1,7 +1,7 @@
 import robot from 'robotjs';
-import clipboardy from 'clipboardy';
 
-import mouse from '../input-devices/mouse.js';
+import mouse from '../peripherals/mouse.js';
+import clipboard from '../utils/clipboard.js';
 
 import {
   sleepUntilPointColorUnmatchesList,
@@ -26,6 +26,29 @@ const contextMenuPoint = {
     upper: {
       x: robot.getMousePos().x + 10,
       y: robot.getMousePos().y - 300,
+    },
+  },
+};
+
+const pixelsForСontextMenuPoint = {
+  copy: {
+    lower: {
+      x: 10,
+      y: 20,
+    },
+    upper: {
+      x: 10,
+      y: -445,
+    },
+  },
+  paste: {
+    lower: {
+      x: 10,
+      y: 190,
+    },
+    upper: {
+      x: 10,
+      y: -300,
     },
   },
 };
@@ -61,13 +84,13 @@ class ContextMenu {
         break;
     }
 
-    return clipboardy.readSync();
+    return clipboard.readSync();
   }
 
   paste(text, style = 'lower') {
     switch (style) {
       case 'lower':
-        clipboardy.writeSync(text);
+        clipboard.write(text);
 
         mouse.click(this.startPoint, 'right');
 
@@ -77,7 +100,7 @@ class ContextMenu {
         mouse.click(contextMenuPoint.paste.lower);
         break;
       case 'upper':
-        clipboardy.writeSync(text);
+        clipboard.write(text);
 
         mouse.click(this.startPoint, 'right');
 
