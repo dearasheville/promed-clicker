@@ -7,25 +7,25 @@ const getClinicianId = (name) => clinicians[name].id;
 const getDiagnostId = (name) => diagnosts[name].id;
 
 const getServiceId = (service) => {
-  const [key] = service.split('.');
+  const [key] = service.split('/');
 
   return key;
 };
 
 const getServiceType = (service) => {
-  const [key, point = 1] = service.split('.');
+  const [key, point = 1] = service.split('/');
 
   return services[key][point].type;
 };
 
 const getRmsCode = (service) => {
-  const [key, point = 1] = service.split('.');
+  const [key, point = 1] = service.split('/');
 
   return services[key][point].rms;
 };
 
 const getFdidsCode = (service) => {
-  const [key, point = 1] = service.split('.');
+  const [key, point = 1] = service.split('/');
 
   return services[key][point].fdids;
 };
