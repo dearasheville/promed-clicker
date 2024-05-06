@@ -1,5 +1,5 @@
-import mouse from '../input-devices/mouse.js';
-import keyboard from '../input-devices/keyboard.js';
+import mouse from '../peripherals/mouse.js';
+import keyboard from '../peripherals/keyboard.js';
 
 import {
   sleepUntilPointColorUnmatchesList,
