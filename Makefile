@@ -1,17 +1,14 @@
 install:
 	npm ci
 
-paraclinic-clicker:
-	npm run babel-node bin/paraclinic-clicker.js
+writer:
+	npm run babel-node bin/writer.js
 
-policlinic-clicker:
-	npm run babel-node bin/policlinic-clicker.js
+reader:
+	npm run babel-node bin/reader.js
 
-paraclinic-remover:
-	npm run babel-node bin/paraclinic-remover.js
-
-policlinic-remover:
-	npm run babel-node bin/policlinic-remover.js
+remover:
+	npm run babel-node bin/remover.js
 
 lint:
 	npx eslint .

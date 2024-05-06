@@ -22,10 +22,9 @@
   },
   "scripts": {
     "babel-node": "babel-node",
-    "paraclinic-clicker": "babel-node bin/paraclinic-clicker.js",
-    "policlinic-clicker": "babel-node bin/policlinic-clicker.js",
-    "paraclinic-remover": "babel-node bin/paraclinic-remover.js",
-    "policlinic-remover": "babel-node bin/policlinic-remover.js",
+    "writer": "babel-node bin/writer.js",
+    "reader": "babel-node bin/reader.js",
+    "remover": "babel-node bin/remover.js",
     "test": "babel-node src/test.js",
     "lint": "eslint ."
   }
