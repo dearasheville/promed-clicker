@@ -4,6 +4,7 @@ import getData from './utils/get-data.js';
 
 const [rowColumnStart, rowColumnEnd] = [0, 16];
 const [servicesColumnStart, servicesColumnEnd] = [8, 16];
+const [serviceTypeStart, serviceTypeEnd] = [0, 3];
 
 const servicesTypes = ['802', '874', '875', '876'];
 
@@ -11,9 +12,9 @@ const clickerEngine = (clicker) => {
   spreadsheet.forEach((row) => {
     const normalizedRow = row.slice(rowColumnStart, rowColumnEnd).map(String);
 
-    const [direction] = normalizedRow;
+    const [number] = normalizedRow;
 
-    if (!direction) {
+    if (!number) {
       return false;
     }
 
@@ -30,7 +31,7 @@ const clickerEngine = (clicker) => {
     const services = normalizedRow
       .slice(servicesColumnStart, servicesColumnEnd)
       .filter((cell) => {
-        const serviceType = cell.slice(0, 3);
+        const serviceType = cell.slice(serviceTypeStart, serviceTypeEnd);
         const isServiceCorrect = servicesTypes.includes(serviceType);
 
         return isServiceCorrect;
@@ -38,7 +39,13 @@ const clickerEngine = (clicker) => {
       .map((cell) => getData(cell, 'service'));
 
     services.forEach((service) => {
-      clicker(patient, clinician, diagnost, service);
+      const didClickerDoJob = clicker(patient, clinician, diagnost, service, number);
+
+      if (didClickerDoJob) {
+        console.log(`Выполнил: ${number}, ${patient.surname} ${patient.name}, ${service.id}\n`);
+      } else {
+        console.log(`Не выполнил: ${number}, ${patient.surname} ${patient.name}, ${service.id}\n`);
+      }
     });
   });
 };
