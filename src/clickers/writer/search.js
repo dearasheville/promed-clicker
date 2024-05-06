@@ -9,12 +9,12 @@ import {
   patientField,
 } from './data-forms/search.js';
 
-import Button from '../graphical-widget/button.js';
-import SimpleForm from '../graphical-widget/form-simple.js';
+import Button from '../../graphical-widget/button.js';
+import SimpleForm from '../../graphical-widget/form-simple.js';
 
 import {
   sleepUntilPointColorUnmatchesList,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const searchButton = new Button(searchButtonData);
 const selectButton = new Button(selectButtonData);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import reader from '../src/reader/reader.js';
+import reader from '../src/clickers/reader/reader.js';
 
 import clickerEngine from '../src/index.js';
 

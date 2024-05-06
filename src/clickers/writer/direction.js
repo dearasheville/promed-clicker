@@ -16,15 +16,15 @@ import {
 
 import popupControl from './popup/popup-control.js';
 
-import Button from '../graphical-widget/button.js';
-import SimpleForm from '../graphical-widget/form-simple.js';
-import BigComplexForm from '../graphical-widget/form-big.js';
-import SmallComplexForm from '../graphical-widget/form-small.js';
+import Button from '../../graphical-widget/button.js';
+import SimpleForm from '../../graphical-widget/form-simple.js';
+import BigComplexForm from '../../graphical-widget/form-big.js';
+import SmallComplexForm from '../../graphical-widget/form-small.js';
 
 import {
   sleepForMs,
   sleepUntilPointColorUnmatchesList,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const msToDelay = 5000;
 

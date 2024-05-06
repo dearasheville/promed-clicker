@@ -1,13 +1,13 @@
-import ClassicPopup from '../../graphical-widget/classic-popup.js';
-import ModernPopup from '../../graphical-widget/modern-popup.js';
+import ClassicPopup from '../../../graphical-widget/classic-popup.js';
+import ModernPopup from '../../../graphical-widget/modern-popup.js';
 
 import {
   getFirstPointMatchesListColor,
-} from '../../utils/colors.js';
+} from '../../../utils/colors.js';
 
 import {
   getPopupDataAccordingToPoint,
-} from '../../utils/get-popup.js';
+} from '../../../utils/get-popup.js';
 
 const startPoint = {
   x: 697,

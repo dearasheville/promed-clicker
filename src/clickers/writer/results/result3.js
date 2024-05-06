@@ -8,8 +8,8 @@ import {
   zoneFormData,
 } from '../data-forms/results/result3.js';
 
-import SimpleForm from '../../graphical-widget/form-simple.js';
-import BigComplexForm from '../../graphical-widget/form-big.js';
+import SimpleForm from '../../../graphical-widget/form-simple.js';
+import BigComplexForm from '../../../graphical-widget/form-big.js';
 
 const journal = 0;
 const dosimetry = 0;

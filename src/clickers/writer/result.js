@@ -10,15 +10,15 @@ import result4 from './results/result4.js';
 
 import popupControl from './popup/popup-control.js';
 
-import keyboard from '../peripherals/keyboard.js';
-import mouse from '../peripherals/mouse.js';
+import keyboard from '../../peripherals/keyboard.js';
+import mouse from '../../peripherals/mouse.js';
 
-import Button from '../graphical-widget/button.js';
+import Button from '../../graphical-widget/button.js';
 
 import {
   sleepForMs,
   sleepUntilPointColorUnmatchesList,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const msToDelay = 5000;
 

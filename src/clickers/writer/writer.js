@@ -5,7 +5,7 @@ import result from './result.js';
 
 import {
   sleepForMs,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const msToDelay = 2500;
 

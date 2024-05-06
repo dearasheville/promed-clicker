@@ -1,6 +1,6 @@
 import {
   sleepForMs,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 import requests from './requests.js';
 import reason from './reason.js';

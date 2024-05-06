@@ -8,13 +8,13 @@ import {
   requestField,
 } from './data-forms/requests.js';
 
-import Button from '../graphical-widget/button.js';
-import SimpleForm from '../graphical-widget/form-simple.js';
-import Link from '../graphical-widget/link.js';
+import Button from '../../graphical-widget/button.js';
+import SimpleForm from '../../graphical-widget/form-simple.js';
+import Link from '../../graphical-widget/link.js';
 
 import {
   sleepUntilPointColorUnmatchesList,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const acceptWithoutRegistrationButton = new Button(acceptWithoutRegistrationButtonData);
 const searchButton = new Button(searchButtonData);

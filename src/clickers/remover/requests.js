@@ -1,9 +1,9 @@
-import Button from '../graphical-widget/button.js';
-import SimpleForm from '../graphical-widget/form-simple.js';
+import Button from '../../graphical-widget/button.js';
+import SimpleForm from '../../graphical-widget/form-simple.js';
 
 import {
   sleepUntilPointColorUnmatchesList,
-} from '../utils/sleep.js';
+} from '../../utils/sleep.js';
 
 const searchButtonData = {
   point: {

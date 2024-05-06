@@ -1,6 +1,5 @@
 import mouse from '../peripherals/mouse.js';
 import keyboard from '../peripherals/keyboard.js';
-import screen from '../peripherals/screen.js';
 
 import Button from './button.js';
 
