@@ -1,3 +1,12 @@
+const searchButtonData = {
+  point: {
+    x: 86,
+    y: 290,
+  },
+  width: 65,
+  height: 21,
+};
+
 const acceptWithoutRegistrationButtonData = {
   point: {
     x: 126,
@@ -7,12 +16,12 @@ const acceptWithoutRegistrationButtonData = {
   height: 21,
 };
 
-const searchButtonData = {
+const cancelButtonData = {
   point: {
-    x: 86,
-    y: 290,
+    x: 779,
+    y: 359,
   },
-  width: 65,
+  width: 77,
   height: 21,
 };
 
@@ -66,8 +75,9 @@ const requestField = {
 };
 
 export {
-  acceptWithoutRegistrationButtonData,
   searchButtonData,
+  acceptWithoutRegistrationButtonData,
+  cancelButtonData,
   birthdayFormData,
   directionFormData,
   serviceLinkData,
